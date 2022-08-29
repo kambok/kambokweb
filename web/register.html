@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="fontawesome-free-6.1.1-web/css/all.css">
+
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+        }
+
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: url(bg3.png),-webkit-linear-gradient(bottom left, #ebe3e363,#eee);
+        }
+
+        .logo{
+            width: 120px;
+            margin: auto;
+            border-radius: 50%;
+
+        }
+
+        .logo img{
+            max-width: 70px;
+            border-radius: 50%;
+            box-shadow: -5px 0 8px rgba(44, 43, 43, 0.3);
+        }
+
+        .container{
+            width: 330px;
+            background: #fff;
+            border-radius: 5px;
+            text-align: center;
+            padding: 50px 35px 10px 35px;
+            box-shadow: 0 0 20px rgba(34, 33, 33, 0.3);
+        }
+
+        .container header{
+            font-size: 35px;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+            opacity: .7;
+        }
+
+        .container .form-outer{
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .form-outer form{
+            display: flex;
+            width: 400%;
+        }
+
+        .form-outer form .page{
+            width: 25%;
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .form-outer form .page .title{
+            text-align: left;
+            font-size: 25px;
+            font-weight: 500;
+            opacity: .7;
+        }
+
+        .form-outer form .page .field{
+            height: 45px;
+            width: 330px;
+            margin: 45px 0;
+            display: flex;
+            position: relative;
+        }
+
+        form .page .field select{
+            width: 100%;
+            padding-left: 10px;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .form-outer form .page .field .label{
+            position: absolute;
+            top: -30px;
+            font-weight: 500;
+            opacity: .7;
+        }
+
+        .form-outer form .page .field input,
+        .form-outer form .page .field select{
+            height: 100%;
+            width: 100%;
+            border: 1px solid lightgrey;
+            border-radius: 5px;
+            font-size: 18px;
+            padding-left: 15px;
+        }
+
+        .form-outer form .page .field button{
+            width: 100%;
+            height: calc(100% + 5px);
+            margin-top: -20px;
+            border: none;
+            background: #031b6b;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s ease;
+        }
+
+        .form-outer form .page .field button:hover{
+            background: #415bb3;
+        }
+
+        .form-outer form .page .btns button{
+            margin-top: -20px!important;
+        }
+
+        form .page .btns button.prev{
+            margin-right: 3px;
+            font-size: 17px;
+        }
+
+        form .page .btns button.next{
+            margin-left: 3px;
+        }
+
+
+        .container .progress-bar{
+            display: flex;
+            margin: 40px 0;
+        }
+
+        .container .progress-bar .step{
+            position: relative;
+            text-align: center;
+            width: 100%;
+        }
+
+        .progress-bar .step p{
+            font-size: 18px;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 8px;
+            transition: 0.2s;
+        }
+
+        .progress-bar .step p.active{
+            color: #00d4ff;
+        }
+
+        .progress-bar .step .bullet{
+            position: relative;
+            height: 25px;
+            width: 25px;
+            border: 2px solid #000;
+            display: inline-block;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .progress-bar .step .bullet.active{
+            border-color: #00d4ff;
+            background: #00d4ff;
+        }
+
+        .progress-bar .step:last-child .bullet::before,
+        .progress-bar .step:last-child .bullet::after{
+            display: none;
+        }
+
+        .progress-bar .step .bullet::before,
+        .progress-bar .step .bullet::after{
+            content: '';
+            position: absolute;
+            height: 3px;
+            width: 80px;
+            bottom: 11px;
+            background: #415bb3;
+            right: -82px;
+        }
+
+        .progress-bar .step .bullet.active::after{
+            background: #00d4ff;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: animate 0.3s linear forwards;
+        }
+
+        @keyframes animate{
+            100%{
+                transform: scaleX(1);
+            }
+        }
+        .progress-bar .step .bullet span{
+            font-weight: 500;
+            font-size: 17px;
+            line-height: 25px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .progress-bar .step .bullet.active span{
+            display: none;
+        }
+
+        .progress-bar .step .check{
+            position: absolute;
+            left: 50%;
+            top: 70%;
+            font-size: 15px;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .progress-bar .step .check.active{
+            display: block;
+            color: #fff;
+        }
+
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            [class*="container"] {
+            width: 100%;
+            padding: 30px 15px 5px 30px;
+            margin-top: -50px;
+            }
+            body{
+                max-width: 100vh;
+                overflow: hidden;
+                padding: 40px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="logo">
+            <img src="kam.png" alt="" srcset="">
+        </div>
+        <header>Add User</header>
+        <div class="progress-bar">
+            <div class="step">
+                <p>Name</p>
+                <div class="bullet">
+                    <span>1</span>
+                </div>
+                <div class="check fa-solid fa-check"> </div>
+            </div>
+            <div class="step">
+                <p>Contact</p>
+                <div class="bullet">
+                    <span>2</span>
+                </div>
+                <div class="check fa-solid fa-check"> </div>
+            </div>
+            <div class="step">
+                <p>Submit</p>
+                <div class="bullet">
+                    <span>3</span>
+                </div>
+                <div class="check fa-solid fa-check"> </div>
+            </div>
+        </div>
+        <div class="form-outer">
+            <form action="Adduser" method="post">
+                <div class="page slidepage">
+                    <div class="title">Basic Info:</div>
+                    <div class="field">
+                        <div class="label">First Name</div>
+                        <input type="text" name="firstn" id="1" onmouseleave="invalidateInput();">
+                    </div><!-- End of field -->
+                    <div class="field">
+                        <div class="label">Last Name</div>
+                        <input type="text" name="lastn" id="2" onmouseleave="invalidateInput();">
+                    </div><!-- End of field -->
+                    <b id="report"></b>
+                    <div class="field nextBtn">
+                        <button type='button' id='nxtBtn' onmouseenter="invalidateInput();">Next</button>
+                    </div><!-- End of field -->
+                    
+                </div><!-- End of page -->
+
+                <div class="page slidepage">
+                    <div class="title">Contact Info:</div>
+                    <div class="field">
+                        <div class="label">Email Address</div>
+                        <input type="email" name="email" id="3" id="2" onmouseleave="invalidateInput();" >
+                    </div><!-- End of field -->
+                    <div class="field">
+                        <div class="label">Phone Number</div>
+                        <input type="text" name="phone" id="4" onmouseleave="invalidateInput();">
+                    </div><!-- End of field -->
+                    <div class="field btns">
+                        <button type='button' class="prev-1 prev">Previous</button>
+                        <button type='button' id ='nxtBtn2' class="next-1 next" onmouseenter="invalidateInput();">Next</button>
+                    </div><!-- End of field -->
+                </div><!-- End of page -->
+                <div class="page slidepage">
+                    <div class="title">Credential</div>
+                    <div class="field">
+                        <div class="label">Password</div>
+                        <input type="password" name="pass" id="5">
+                    </div><!-- End of field -->
+                    <div class="field">
+                        <div class="label">Position</div>
+                        <select name="position" id="6" onmouseleave="invalidateInput();">
+                            <option value="Default">Select</option>
+                            <option value="Customer Care">Customer care</option>
+                            <option value="Finance">Payment Department</option>
+                             <option value="Inspector">Inspection Department</option>
+                              <option value="Client">Client</option>
+                              <option value="Investor">Investor</option>
+                        </select>
+                    </div><!-- End of field -->
+                    <div class="field btns">
+                        <button type='button' class="prev-2 prev">Previous</button>
+                        <button id="nxtBtn3" type="submit" class="submit" onmouseenter="invalidateInput();">Submit</button>
+                    </div><!-- End of field -->
+                </div><!-- End of page -->
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const slidePage = document.querySelector(".slidepage");
+        const firstNextBtn = document.querySelector(".nextBtn");
+        const prevBtnSec = document.querySelector(".prev-1");
+        const nextBtnSec = document.querySelector(".next-1");
+        const prevBtnThird = document.querySelector(".prev-2");
+        const nextBtnThird = document.querySelector(".next-2");
+        const prevBtnForth = document.querySelector(".prev-3");
+        const submitBtn = document.querySelector(".submit");
+        const progressTxt = document.querySelectorAll(".step p");
+        const progressCheck = document.querySelectorAll(".step .check");
+        const bullet= document.querySelectorAll(".step .bullet");
+        
+        function invalidateInput(){
+            var fname = document.getElementById("1");
+            var lname = document.getElementById("2");
+            var email = document.getElementById("3");
+            var tel = document.getElementById("4");
+            var pass = document.getElementById("5");
+            var post = document.getElementById("6");
+     
+            if(fname.value==""){
+                document.getElementById("nxtBtn").style.backgroundColor = "lightgrey";
+                document.getElementById("nxtBtn").disabled = true;
+                fname.placeholder = "Required field";
+                fname.style.borderColor = "red";
+            }
+            else{
+                document.getElementById("nxtBtn").style.backgroundColor = "#031b6b";
+                document.getElementById("nxtBtn").disabled = false;
+                fname.placeholder = "";
+                fname.style.borderColor = "lightgrey";
+            }
+            
+            if(lname.value==""){
+                document.getElementById("nxtBtn").style.backgroundColor = "lightgrey";
+                document.getElementById("nxtBtn").disabled = true;    
+                lname.placeholder = "Required field";
+                lname.style.borderColor = "red";
+            }
+            else{
+                document.getElementById("nxtBtn").style.backgroundColor = "#031b6b";
+                document.getElementById("nxtBtn").disabled = false;
+                lname.placeholder = "";
+                lname.style.borderColor = "lightgrey";
+            }
+            
+            if(email.value==""){
+                document.getElementById("nxtBtn2").style.backgroundColor = "lightgrey";
+                document.getElementById("nxtBtn2").disabled = true;    
+                email.placeholder = "Required field";
+                email.style.borderColor = "red";
+            }
+            else{
+                document.getElementById("nxtBtn2").style.backgroundColor = "#031b6b";
+                document.getElementById("nxtBtn2").disabled = false;
+                email.placeholder = "";
+                email.style.borderColor = "lightgrey";
+            }
+            
+            if(tel.value==""){
+                document.getElementById("nxtBtn2").style.backgroundColor = "lightgrey";
+                document.getElementById("nxtBtn2").disabled = true;    
+                tel.placeholder = "Required field";
+                tel.style.borderColor = "red";
+            }
+            else{
+                document.getElementById("nxtBtn2").style.backgroundColor = "#031b6b";
+                document.getElementById("nxtBtn2").disabled = false;
+                tel.placeholder = "";
+                tel.style.borderColor = "lightgrey";
+            }
+            
+            if(pass.value==""){
+                document.getElementById("nxtBtn3").style.backgroundColor = "lightgrey";
+                document.getElementById("nxtBtn3").disabled = true;    
+                pass.placeholder = "Required field";
+                pass.style.borderColor = "red";
+            }
+            else{
+                document.getElementById("nxtBtn3").style.backgroundColor = "#031b6b";
+                document.getElementById("nxtBtn3").disabled = false;
+                pass.placeholder = "";
+                pass.style.borderColor = "lightgrey";
+            }
+            
+             if(post.value=="Default"){
+                document.getElementById("nxtBtn3").style.backgroundColor = "lightgrey";
+                document.getElementById("nxtBtn3").disabled = true;    
+                post.option = "Required field";
+                post.style.borderColor = "red";
+            }
+            else{
+                document.getElementById("nxtBtn3").style.backgroundColor = "#031b6b";
+                document.getElementById("nxtBtn3").disabled = false;
+                post.option = post.value;
+                post.style.borderColor = "lightgrey";
+            }
+           
+        }
+
+
+        let max = 3;
+        let current = 1;
+        // Next function
+        firstNextBtn.addEventListener("click", function(){
+            slidePage.style.marginLeft = "-25%";
+            bullet[current -1].classList.add("active");
+            progressCheck[current -1].classList.add("active");
+            progressTxt[current -1].classList.add("active");
+            current+=1;
+        });
+
+        nextBtnSec.addEventListener("click", function(){
+            slidePage.style.marginLeft = "-50%";
+            bullet[current -1].classList.add("active");
+            progressCheck[current -1].classList.add("active");
+            progressTxt[current -1].classList.add("active");
+            current+=1;
+        });
+
+        submitBtn.addEventListener("click", function(){
+            bullet[current -1].classList.add("active");
+            progressCheck[current -1].classList.add("active");
+            progressTxt[current -1].classList.add("active");
+            current+=1;
+            setTimeout(function(){
+                alert("You've successfuly registered");
+                location.reload();
+            },800);
+        });
+
+        // Prev function
+        prevBtnSec.addEventListener("click", function(){
+            slidePage.style.marginLeft = "0";
+            bullet[current -2].classList.remove("active");
+            progressCheck[current -2].classList.remove("active");
+            progressTxt[current -2].classList.remove("active");
+            current-=1;
+        });
+
+        prevBtnThird.addEventListener("click", function(){
+            slidePage.style.marginLeft = "-25%";
+            bullet[current -2].classList.remove("active");
+            progressCheck[current -2].classList.remove("active");
+            progressTxt[current -2].classList.remove("active");
+            current-=1;
+        });
+    </script>
+</body>
+</html>
