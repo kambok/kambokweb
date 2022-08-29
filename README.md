@@ -8,7 +8,8 @@ This is a loan and programming school website project
 * *Money Loan services and*
 * *Other general services*
 
-##User interface
+##Interface
+![sample](https://user-images.githubusercontent.com/109483000/187227979-1cdc9c30-6eec-4917-9eb0-b30c527a218a.png)
 
 ## Usage for developers
 You can either clone or fork this project
