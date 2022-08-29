@@ -8,10 +8,12 @@ This is a loan and programming school website project
 * *Money Loan services and*
 * *Other general services*
 
+##User interface
+
 ## Usage for developers
 You can either clone or fork this project
 ```git
-git clone [https://github.com/kambok/kambokwebloan.git](https://github.com/kambok/kambokweb.git)
+git clone https://github.com/kambok/kambokweb.git
 git add .
 git commit -m"commit text"
 git status
