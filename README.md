@@ -3,18 +3,15 @@
 [![Github repo size](https://img.shields.io/github/repo-size/gitpeters/kambokwebloan)](https://github.com/gitpeters/kambokwebloan.git)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/w/gitpeters/kambokwebloan)](https://github.com/gitpeters/kambokwebloan.git)
 <br>
-
-This project is a subsidiary of [kambok infotech](https://kambok-limited.business.site/) that provides:
-
-
+This is a loan and programming school website project
 * *Programming school*
 * *Money Loan services and*
 * *Other general services*
 
-## Usage
+## Usage for developers
 You can either clone or fork this project
 ```git
-git clone https://github.com/kambok/kambokwebloan.git
+git clone [https://github.com/kambok/kambokwebloan.git](https://github.com/kambok/kambokweb.git)
 git add .
 git commit -m"commit text"
 git status
