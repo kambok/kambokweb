@@ -306,23 +306,23 @@ location.reload();
                             </div>
             <div class="col-md-4">
                               <label for="colname" class="form-label">Address</label>
-                              <input type="text"  class="form-control" id="add" value="<%=s.getAdress()%>" name="address">
+                              <input type="text"  class="form-control" id="add"  name="address">
                             </div>
             <div class="col-md-4">
                               <label for="colname" class="form-label">State</label>
-                              <input type="text"  class="form-control" id="state" value="<%=s.getState()%>" name="state">
+                              <input type="text"  class="form-control" id="state"  name="state">
                             </div>
                        <div class="col-md-4">
                               <label for="colname" class="form-label">Gender</label>
-                              <input type="text"  class="form-control" id="gender" value="<%=s.getGender()%>" name="gender">
+                              <input type="text"  class="form-control" id="gender"  name="gender">
                             </div>
             <div class="col-md-4">
                               <label for="colname" class="form-label">Purpose</label>
-                              <input type="text"  class="form-control" id="purpose" value="<%=s.getPurpose()%>" name="purpose">
+                              <input type="text"  class="form-control" id="purpose"  name="purpose">
                             </div>
             <div class="col-md-4">
                               <label for="colname" class="form-label">Occupation</label>
-                              <input type="text"  class="form-control" id="occ" value="<%=s.getOccupation()%>" name="occupation">
+                              <input type="text"  class="form-control" id="occ" name="occupation">
                             </div>
                     
               <input type="button" class="btn btn-success p-2" onclick="sendInfo();" value="save">
