@@ -289,7 +289,7 @@
                 <div class="card-body">
                     <strong id="dis" class="text-success"></strong>
                     <div class="container">
-                        <table class="table p-3">
+                        <table id="profileTable" class="table p-3">
                             <tr role="col" class="py-5 mt-3 mt-md-0">
                                 <th class="text-secondary">First Name:</th>
                                 <td><%= s.getFirstname()%></td>
@@ -389,8 +389,12 @@
         <script type="text/javascript">
             const btn = document.getElementById("editForm");
             const form = document.getElementById("form");
+            const table = document.getElementById("profileTable");
             btn.addEventListener('click', function(){
                 form.classList.toggle("d-none");
+                form.addEventListener('mouseenter', function(){
+                    table.classList.toggle("d-none");
+                });
             });
         </script>
     </div>  
