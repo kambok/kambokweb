@@ -18,9 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Address;
-import model.AdminInvestment;
+
 import model.AdminUser;
 import model.Admindetails;
+import model.AdmininvestmentDetails;
 import model.Ads;
 import model.ApplicantVerification;
 import model.ApproveRequest;
@@ -1010,34 +1011,39 @@ public static Wallet getsinglewalletReceipt(String pin){
        }catch(Exception ex){}
   return wu;
 }
-public static int setadminCapital(AdminInvestment ad){
-int i=0;
-double capitalamount=0.0;
+
+public static double setadminCapital(AdmininvestmentDetails ad ){
+ int i=0;
+ double capitalamount=0.0;
  try{
     Connection con=myconnection();
-String admin="select * from onedrive.admininvestment where email=?";
-   PreparedStatement ps= con.prepareStatement(admin);
-   ps.setString(1, ad.getEmail());
+    String admin="select * from onedrive.admininvestment where walletno='"+ad.getWalletno()+"' AND email='Loan@kambok.com' OR email='"+ad.getEmail()+"'";
+    PreparedStatement ps= con.prepareStatement(admin);
     ps.executeUpdate();
-      ResultSet rs = ps.executeQuery();
+    ResultSet rs = ps.executeQuery();
     while(rs.next()){
-       capitalamount=rs.getDouble(11);
-    }
-  
-    String sql = "update onedrive.admininvestment set capitalinvest=? where email=?";
+     capitalamount=rs.getDouble(11);
+     }
+     capitalamount+=ad.getCapitalinvest();
+    String sql ="update onedrive.admininvestment set capitalinvest='"+capitalamount+"' where email='"+ad.getEmail()+"'";
     PreparedStatement pss=con.prepareStatement(sql);
-    capitalamount+=ad.getCapitalinvest();
-    pss.setDouble(1, capitalamount);
-    pss.setString(1, ad.getEmail());
+    pss.executeUpdate();
+ 
+    String sql2="insert into onedrive.admininvesthistory values(?,?,?,?,?,?)";   
+    PreparedStatement pss2=con.prepareStatement(sql2);
+    pss2.setString(1, ad.getWalletno());
+    pss2.setString(2, ad.getDate());
+    pss2.setString(3, ad.getType());
+    pss2.setString(4, ad.getStatus());
+    pss2.setDouble(5, ad.getCapitalinvest());
+    pss2.setDouble(6, capitalamount);
+    i+=pss2.executeUpdate(); 
     
  }catch(Exception ex){
  ex.printStackTrace();
  }
-
-
-return i;
+return capitalamount;
 }
-
 
 
 public static int updatewallet(Wallet w){
