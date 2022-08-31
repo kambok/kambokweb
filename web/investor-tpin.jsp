@@ -210,7 +210,7 @@ main .model-container .model{
 <div class="position-sticky pt-md-5">
   <ul class="nav flex-column mx-3" id="navbar">
       <li class="nav-item  ">
-        <a class="nav-link active" aria-current="page" href="investor-bio.jsp">
+        <a class="nav-link" aria-current="page" href="investor-bio.jsp">
           <i class="fa-solid fa-id-card"></i>
           <span class="ml-2">Profile</span>
         </a>
@@ -228,13 +228,13 @@ main .model-container .model{
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="uploadpassport.jsp">
+        <a class="nav-link" href="investorpassport.jsp">
           <i class="fas fa-upload"></i>
           <span class="ml-2">Upload Passport</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="investor-tpin.jsp">
+        <a class="nav-link active" href="investor-tpin.jsp">
           <i class="fa-solid fa-key"></i>
           <span class="ml-2">Transaction Pin</span>
         </a>
@@ -247,19 +247,7 @@ main .model-container .model{
       </li>
     </ul>
 </div>
-      
-      <!--CONTROLLING THE ACTIVE LINK-->
-<!--      <script>
-         var navbar = document.getElementById("navbar");
-         var link = document.getElementsByClassName("nav-link");
-         for(var i = 0; i < link.length; i++){
-             link[i].addEventListener("click", function(){
-                 var currentLink = document.getElementsByClassName("active");
-                 currentLink[0].className = currentLink[0].className.replace(" active", "");
-                 this.className += " active";
-             });
-         }
-      </script>-->
+
 </nav>
 <main class="col-md-8 ml-sm-auto col-lg-10 px-md-4 py-4">
     <nav aria-label="breadcrumb">
@@ -342,7 +330,7 @@ main .model-container .model{
                     <p>You're about to set your transaction pin</p>
                     <h5>Are you sure?</h5>
                     <br><br>
-                    <form action="SetTransactionPin" method="post">
+                    <form action="Investor" method="post">
                         <input type="password" class="form-control" placeholder="Enter Password" id= "pass" required="required" style="height: 55px;" name="password" onmouseleave="validatePass()">
                         <p class="text-danger" id="r"></p>
                     <input type="hidden" name="tpin" id="pin">

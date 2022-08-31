@@ -12,14 +12,14 @@
   
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<heads
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <META Http-Equiv="Cache-Control" Content="no-cache">
 <META Http-Equiv="Pragma" Content="no-cache">
 <META Http-Equiv="Expires" Content="0">
 
-    <title>Adminhome</title>
+    <title>Admin Dashboard</title>
  
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
   	  
