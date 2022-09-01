@@ -12,10 +12,102 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import model.*;
+import model.Address;
+
+import model.AdminUser;
+import model.Admindetails;
+import model.AdmininvestmentDetails;
+import model.Ads;
+import model.ApplicantVerification;
+import model.ApproveRequest;
+import model.Bank;
+import model.CollateralVerify;
+import model.CustomerRegister;
+import model.DataSupply;
+import model.Departmentinfo;
+import model.ExtensionDetails;
+import model.Finance;
+import model.History;
+import model.Investment;
+import model.LoanAgr;
+import model.LoanDetailSupply;
+import model.LoanDetails;
+import model.LoanRequest;
+import model.Logindetails;
+import model.MakePayment;
+import model.PassportUpload;
+import model.Payment;
+import model.PaymentCodegenerator;
+import model.Redeem;
+import model.Users;
+import model.VerificationCodegenerator;
+import model.Wallet;
 import org.apache.commons.fileupload.FileItem;
 
 public class Database {
+
+static String name="com.mysql.jdbc.Driver";
+static String url="jdbc:mysql://localhost:3306/onedrive";
+static String username="root";
+static String password="Ab@230596";
+static float total=0;
+static float  deposit=0;
+static float  balance=0;
+
+public static Connection myconnection(){
+    Connection con=null;
+try{
+	Class.forName(name).newInstance();
+   con=DriverManager.getConnection(url,username,password);
+   
+}catch(Exception e){
+System.out.println(e);}
+
+	return con;
+}
+   
+public static int clientusers(Users us){
+    int i=0;
+    try{
+ Connection con=myconnection();
+ String sql="insert into onedrive.register values (?,?,?,?,?)";
+String sql2="insert into onedrive.login values(?,?)";
+ String sql3="insert into onedrive.position values(?,?)";
+ PreparedStatement prst=con.prepareStatement(sql2);
+ prst.setString(1,us.getEmail());
+ prst.setString(2, us.getPassword());
+  PreparedStatement prst2=con.prepareStatement(sql3);
+  prst2.setString(1, us.getEmail());
+  prst2.setString(2, us.getPosition());
+          
+ PreparedStatement user=con.prepareStatement(sql);
+user.setString(1, us.getFirstname());
+user.setString(2, us.getLastname());
+user.setString(3, us.getPhone());
+user.setString(4, us.getPassword());
+user.setString(5, us.getEmail());
+
+ i=user.executeUpdate();
+ i+=prst.executeUpdate();
+ i+=prst2.executeUpdate();
+ 
+ String urll="insert into onedrive.wallet values(?,?,?,?,?)";
+ PreparedStatement wallet=con.prepareStatement(urll);
+ wallet.setString(1, us.getEmail());
+ wallet.setLong(2, Long.parseLong(VerificationCodegenerator.generatewallet()));
+ wallet.setDouble(3,0.0);
+ wallet.setDouble(4,0.0);
+ wallet.setDouble(5,0.0);
+ wallet.executeUpdate();
+ 
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+    return i;
+}
+
 
     static String name = "com.mysql.jdbc.Driver";
     static String url = "jdbc:mysql://localhost:3306/onedrive";
@@ -532,6 +624,7 @@ public class Database {
             ps.setString(1, in.getUsername());
             ps.setString(2, in.getPassword());
 
+
             ResultSet rs = ps.executeQuery();
             status = rs.next();
 
@@ -549,8 +642,64 @@ public class Database {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, in.getUsername());
 
+public static Wallet getsinglewalletReceipt(String pin){
+    Wallet wu=new Wallet();
+  try{
+    Connection con=myconnection();
+    String url="select * from onedrive.wallethistory where pin='"+pin+"'";
+    PreparedStatement ps= con.prepareStatement(url);
+      ResultSet rs = ps.executeQuery();
+    while(rs.next()){
+      wu.setAccount(rs.getString(1));
+      wu.setCredit(rs.getDouble(2));
+      wu.setBalance(rs.getDouble(3));
+      wu.setSender(rs.getString(4));
+      wu.setDate(rs.getString(5));
+      wu.setPin(rs.getString(6));
+      wu.setStatus(rs.getString(7));
+       }
+    
+       }catch(Exception ex){}
+  return wu;
+}
+
+public static double setadminCapital(AdmininvestmentDetails ad ){
+ int i=0;
+ double capitalamount=0.0;
+ try{
+    Connection con=myconnection();
+    String admin="select * from onedrive.admininvestment where walletno='"+ad.getWalletno()+"' AND email='Loan@kambok.com' OR email='"+ad.getEmail()+"'";
+    PreparedStatement ps= con.prepareStatement(admin);
+    ps.executeUpdate();
+    ResultSet rs = ps.executeQuery();
+    while(rs.next()){
+     capitalamount=rs.getDouble(11);
+     }
+     capitalamount+=ad.getCapitalinvest();
+    String sql ="update onedrive.admininvestment set capitalinvest='"+capitalamount+"' where email='"+ad.getEmail()+"'";
+    PreparedStatement pss=con.prepareStatement(sql);
+    pss.executeUpdate();
+ 
+    String sql2="insert into onedrive.admininvesthistory values(?,?,?,?,?,?)";   
+    PreparedStatement pss2=con.prepareStatement(sql2);
+    pss2.setString(1, ad.getWalletno());
+    pss2.setString(2, ad.getDate());
+    pss2.setString(3, ad.getType());
+    pss2.setString(4, ad.getStatus());
+    pss2.setDouble(5, ad.getCapitalinvest());
+    pss2.setDouble(6, capitalamount);
+    i+=pss2.executeUpdate(); 
+    
+ }catch(Exception ex){
+ ex.printStackTrace();
+ }
+return capitalamount;
+}
+
+
             ResultSet r = ps.executeQuery();
             while (r.next()) {
+
 
                 ln.setPosition(r.getString(2));
             }
@@ -559,6 +708,74 @@ public class Database {
             System.out.println(e);
         }
         return ln;
+
+public static int updatewallet(Wallet w){
+   int i=0;
+   double credit=0.0;
+   double total=0.0;
+   double debit=0.0;
+    try{
+    Connection con=myconnection();
+    //String url="select * from onedrive.admininvestment";
+    
+    String sqll="select * from onedrive.wallet where acctno='"+w.getAccount()+"'";
+    PreparedStatement pss = con.prepareStatement(sqll);
+      ResultSet rs = pss.executeQuery();
+    while(rs.next()){
+       credit=rs.getDouble(3);
+       debit=rs.getDouble(4);
+       total=rs.getDouble(5);
+    }
+    if(debit<=0){
+    String sql = "update onedrive.wallet set credit=?,total=? where acctno=?";
+    PreparedStatement ps = con.prepareStatement(sql);
+     double baltotal=total+=w.getTotal();
+     double finbal=baltotal-debit;
+    ps.setDouble(1, w.getCredit());
+    ps.setDouble(2, finbal);
+    ps.setString(3, w.getAccount());
+    ps.executeUpdate();
+    
+    String sql2="insert into onedrive.wallethistory values(?,?,?,?,?,?,?)";
+    PreparedStatement ps2 = con.prepareStatement(sql2);
+      ps2.setString(1, w.getAccount());
+      ps2.setDouble(2, w.getCredit());
+      ps2.setDouble(3,finbal);
+      ps2.setString(4, w.getSender());
+      ps2.setString(5, w.getDate());
+      ps2.setString(6, PaymentCodegenerator.generateRegno());
+      ps2.setString(7, w.getStatus());
+      i=ps2.executeUpdate();
+    }else{
+    String sql = "update onedrive.wallet set credit=?,debit=?,total=? where acctno=?";
+    PreparedStatement ps = con.prepareStatement(sql);
+    double cr=w.getCredit();
+    double finaldebit=0.0;
+      if(debit>cr){
+          finaldebit=debit-cr;
+      }else{
+      finaldebit=cr-debit;
+      }
+    ps.setDouble(1, w.getCredit());
+    ps.setDouble(2, finaldebit);
+    ps.setDouble(3, 0.0);
+    ps.setString(4, w.getAccount());
+    ps.executeUpdate();
+    
+    String sql2="insert into onedrive.wallethistory values(?,?,?,?,?,?,?)";
+    PreparedStatement ps2 = con.prepareStatement(sql2);
+      ps2.setString(1, w.getAccount());
+      ps2.setDouble(2, w.getCredit());
+      ps2.setDouble(3,0.0);
+      ps2.setString(4, w.getSender());
+      ps2.setString(5, w.getDate());
+      ps2.setString(6, PaymentCodegenerator.generateRegno());
+      ps2.setString(7, w.getStatus());
+      
+      i=ps2.executeUpdate();
+        }
+    }catch(Exception e){
+
     }
 
     public static String extenstionupdate(LoanDetails ld, ExtensionDetails exd) {
