@@ -16,7 +16,6 @@ import model.*;
 import org.apache.commons.fileupload.FileItem;
 
 public class Database {
-
     static String name = "com.mysql.jdbc.Driver";
     static String url = "jdbc:mysql://localhost:3306/onedrive";
     static String username = "root";
@@ -30,11 +29,9 @@ public class Database {
         try {
             Class.forName(name).newInstance();
             con = DriverManager.getConnection(url, username, password);
-
         } catch (Exception e) {
             System.out.println(e);
         }
-
         return con;
     }
 
@@ -1028,7 +1025,7 @@ public class Database {
         return wu;
     }
 
-    public static int setadminCapital(AdminInvestment ad) {
+    public static int setadminCapital(AdmininvestmentDetails ad) {
         int i = 0;
         double capitalamount = 0.0;
         try {

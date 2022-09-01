@@ -14,7 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Profile</title>
+        <title>Account Info</title>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 
@@ -100,15 +100,13 @@
             function sendInfo()
             {
                 var email = document.myform.email.value;
-                var address = document.myform.address.value;
-                var state = document.myform.state.value;
-                var phone = document.myform.phone.value;
-                var gender = document.myform.gender.value;
-                var city = document.myform.city.value;
+                var bank_name = document.myform.bank_name.value;
+                var account_number = document.myform.account_number.value;
+                var account_type = document.myform.account_type.value;
 
-                if (gender != "" && state != "" && phone != "" && city!="" && address != "") {
+                if (bank_name != "" && account_number != "") {
 
-                    var url = "saveInvestorBio?email=" + email + "&address=" + address + "&state=" + state + "&city=" + city + "&phone=" + phone  + "&gender=" + gender;
+                    var url = "saveInvestorAccount?email=" + email + "&bank_name=" + bank_name + "&account_type=" + account_type + "&account_number=" + account_number;
 
                     if (window.XMLHttpRequest) {
                         request = new XMLHttpRequest();
@@ -157,9 +155,9 @@
     <body>
 
         <script>
-            history.pushState(null, 'investor-bio.jsp', location.href);
+            history.pushState(null, 'investor-account.jsp', location.href);
             window.addEventListener('popstate', function (event) {
-                history.pushState(null, 'investor-bio.jsp', location.href)
+                history.pushState(null, 'investor-account.jsp', location.href)
             });
         </script>
         <%!String name = "", position = "", email = "", pic = "", pic2 = "", id = "", transid = "", phone = "", verificationid = "", date = "", loanamount = "", total = "", interest = "", firstname = "", lastname = "", applicantemail = "", email2 = "";%>
@@ -227,13 +225,13 @@
             <div class="position-sticky pt-md-5">
                 <ul class="nav flex-column mx-3" id="navbar">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="investor-bio.jsp">
+                        <a class="nav-link" aria-current="page" href="investor-bio.jsp">
                             <i class="fa-solid fa-id-card"></i>
                             <span class="ml-2">Profile</span>
                         </a>
                     </li>
-                    <li class="nav-item  active">
-                        <a class="nav-link" aria-current="page" href="investor-account.jsp">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="investor-account.jsp">
                             <i class="fa-solid fa-building-columns"></i>
                             <span class="ml-2">Account Info</span>
                         </a>
@@ -284,75 +282,60 @@
             <br>
 
             <div class="card">
-                <h5 class="card-header">Personal Information</h5>
+                <h5 class="card-header">Account Information</h5>
                 <div class="card-body">
                     <strong id="dis" class="text-success"></strong>
                     <div class="container">
                         <table id="profileTable" class="table p-3">
                             <tr role="col" class="py-5 mt-3 mt-md-0">
-                                <th class="text-secondary">First Name:</th>
-                                <td><%= s.getFirstname()%></td>
+                                <th class="text-secondary">Account Name:</th>
+                                <td><%= s.getFirstname()+" " +s.getLastname()%></td>
                             </tr>
                             <tr role="col" class="py-5">
-                                <th class="text-secondary">Last Name:</th>
+                                <th class="text-secondary">Bank Name:</th>
                                 <td><%= s.getLastname()%></td>
                             </tr>
                             <tr role="col" class="py-5">
-                                <th class="text-secondary">Email:</th>
+                                <th class="text-secondary">Account Number:</th>
                                 <td><%= s.getEmail()%></td>
                             </tr>
                             <tr role="col" class="p-5">
-                                <th class="text-secondary">Phone:</th>
+                                <th class="text-secondary">Account Type:</th>
                                 <td><%= s.getPhone()%></td>
                             </tr>
                         </table>
-                        <button id="editForm" class="btn btn-info">Edit Profile Information</button>
+                        <button id="editForm" class="btn btn-info">Edit Account Information</button>
                         <div class="row">
                             <div class="col-md-6 mx-auto">
-                                <form id="form" name="myform" class="form d-none" method="post">
-                                    <h3 class="text-secondary p-2">Edit Personal Information</h3>
+                                <form id="form" class="form d-none" method="post">
+                                    <input class="form-control" type="hidden" name="email" value="<%= s.getEmail()%>" >
+                                    <h3 class="text-secondary p-2">Edit Account Information</h3>
+                                    <small class="text-danger">Note: In order to secure your account and money in your wallet, your account name must tally with the bank name</small>
                                     <div class="form-group mt-3">
-                                        <label class="text-dark">First Name:</label>
-                                        <input class="form-control" readonly="true" placeholder="<%= s.getFirstname()%>" >
+                                        <label class="text-dark">Account Name:</label>
+                                        <input class="form-control" readonly="true" placeholder="<%= s.getFirstname()+" " +s.getLastname()%>" >
                                     </div>
                                     <div class="form-group mt-3">
-                                        <label class="text-dark">Last Name:</label>
-                                        <input class="form-control" readonly="true" placeholder="<%= s.getLastname()%>" >
+                                        <label class="text-dark">Bank Name:</label>
+                                        <input class="form-control" name="bank_name"  placeholder="Zenith Bank Plc" >
+                                    </div>
+                                  
+                                    <div class="form-group mt-3">
+                                        <label class="text-dark">Account Number:</label>
+                                        <input class="form-control" name="account_number" placeholder="<%= s.getPhone()%>" >
                                     </div>
                                     <div class="form-group mt-3">
-                                        <label class="text-dark">Email:</label>
-                                        <input class="form-control" readonly="true" name="email" value="<%= s.getEmail()%>" >
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="text-dark">Phone Number:</label>
-                                        <input class="form-control" name="phone" placeholder="<%= s.getPhone()%>" >
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="text-dark">Gender:</label>
+                                        <label class="text-dark">Account Type:</label>
                                         <div class="flex">
-                                            <input id="mcheckbx" type="radio" name="gender" value="male" class="form-check-input" checked="checked">
-                                            <label for="mcheckbx">Male</label>&nbsp; &nbsp;
-                                            <input id="fcheckbx" type="radio" name="gender" value="female" class="form-check-input">
-                                            <label for="fcheckbx">Female</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="text-dark">Home Address:</label>
-                                        <input class="form-control" name="address" placeholder="No.3, Plot 2, Gwarinpa, Abuja" >
-                                    </div>
-                                    <div class="d-flex mt-3 justify-content-between">
-                                        <div class="form-group">
-                                            <label class="text-dark">City:</label>
-                                            <input class="form-control" name="city" placeholder="Gwarinpa" >
-                                        </div>
-                                        <div class="form-group ms-3">
-                                            <label class="text-dark">State:</label>
-                                            <input class="form-control" name="state" placeholder="Abuja" >
+                                            <input id="mcheckbx" type="radio" name="account_type" value="savings" class="form-check-input" checked="checked">
+                                            <label for="mcheckbx">Savings</label>&nbsp; &nbsp;
+                                            <input id="fcheckbx" type="radio" name="account_type" value="current" class="form-check-input">
+                                            <label for="fcheckbx">Current</label>
                                         </div>
                                     </div>
                                     <div class="text-center mt-3">
                                         <b id="dis" class="text-warning p-3"></b><br>
-                                        <button type="button" onclick="sendInfo()" class="btn btn-info">Save Edit</button>
+                                        <button type="button" onclick="sendInfo()" class="btn btn-primary">Save Edit</button>
                                     </div>
                                 </form>
                             </div>

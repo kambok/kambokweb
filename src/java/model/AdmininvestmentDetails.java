@@ -1,11 +1,26 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package model;
 
-
-public class AdminInvestment {
-
- String walletno,email,refid,date,status;
+/**
+ *
+ * @author User
+ */
+public class AdmininvestmentDetails {
+ 
+    String walletno,email,refid,date,status,type;
  int month,days,years;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
  double monthlyinvest,yearlyreturn,capitalinvest,monthlyreturn;
 
     public String getWalletno() {
@@ -103,6 +118,5 @@ public class AdminInvestment {
     public void setMonthlyreturn(double monthlyreturn) {
         this.monthlyreturn = monthlyreturn;
     }
- 
  
 }

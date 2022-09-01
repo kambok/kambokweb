@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.AdmininvestmentDetails;
+
 import model.PaymentCodegenerator;
 import model.Wallet;
 
@@ -34,11 +36,18 @@ public class CreditAccount extends HttpServlet {
             w.setDate(mydate);
             w.setSender(sender);
             w.setStatus("cr");
-            model.AdminInvestment ad=new model.AdminInvestment();
-             ad.setEmail(email);
-             ad.setCapitalinvest(Double.parseDouble(amount));
-         int i=data.Database.updatewallet(w);
-            data.Database.setadminCapital(ad);
+           
+            int i=data.Database.updatewallet(w);
+            if(email.contains("@")){
+            AdmininvestmentDetails a=new AdmininvestmentDetails();
+             a.setEmail(email);
+             a.setCapitalinvest(Double.parseDouble(amount));
+             a.setStatus("Successful");
+             a.setDate(mydate);
+             a.setType("Cr");
+             a.setWalletno(id);
+             data.Database.setadminCapital(a);
+            }
             if(i==1){
            out.println("Successful");
             }else{
