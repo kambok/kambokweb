@@ -359,9 +359,8 @@
             });
         </script>
         <%!String name = "", position = "", email = "", pic = "", pic2 = "", id = "", transid = "", phone = "", verificationid = "", date = "", 
-                loanamount = "", total = "", interest = "", firstname = "", lastname = "", applicantemail = "", email2 = "",
-                adsAmt="", adsId="", adsStatus=""
-        ;%>
+                loanamount = "", total = "", interest = "", firstname = "", lastname = "", applicantemail = "", email2 = "";
+        %>
 
         <%
             AdminUser us = (AdminUser) session.getAttribute("staff");
@@ -374,12 +373,6 @@
             } else {
                 response.sendRedirect("index.jsp");
             }
-            
-             List<Ads> loanAds = data.Database.GetLoanAds();
-             for (Ads ads : loanAds) {
-                 adsAmt = ads.getAdsAmount();
-                 adsId = ads.getAdsID();
-             }
         %>
 
 
@@ -500,7 +493,9 @@
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-md-11 p-4">
                                         <div class="owl-carousel owl-theme ">
+
                                             <%
+                                                List<Ads> loanAds = data.Database.GetLoanAds();
                                                 for (Ads ads : loanAds) {
                                                     if (ads.getAdsStatus().equals("Pending")) {
                                                         out.println("<div class='item p-2'>");
@@ -538,7 +533,7 @@
                                                         out.println("</div>");
 
                                                         out.println("<input type='hidden' name='adsId' value='"+ads.getAdsID()+"'>");
-                                                        out.println("<h5 class='card-title'>₦"+ ads.getAdsAmount()+ "</h5>");
+                                                        out.println("<h5 class='card-title'>₦"+ ads.getInvestBalance()+ "</h5>");
                                                         out.println("<p class='card-text'>Get a 10% interest upon any amount invested at the end of 30days</p>");
                                                         out.println("<form action='GetInvestInfo' method='post'><input type='hidden' name='adsId' value='"+ads.getAdsID()+"'><button type='submit' class='btn btn-info invest-btn'>Invest Now</button></form>");
 //                                                        out.println("<a href='Invest.jsp' class='btn btn-info invest-btn'>Invest Now</a>");
@@ -547,7 +542,7 @@
                                                         out.println("</div>");
                                                         out.println("</div>");
                                                         out.println("</div>");
-                                                    }else{
+                                                    }else if(!ads.getAdsStatus().equals("Pending")&&!ads.getAdsStatus().equals("Invested")){
                                                        out.println("<div class='item p-2'>");
                                                         out.println("<div class='card border-0 box-area'>");
                                                             out.println("<div class='card-header bg-info text-light'>");
