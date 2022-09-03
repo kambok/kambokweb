@@ -60,20 +60,20 @@
     }
     </script>
     <section class="vh-100">
-        <div class="container py-5 h-100">
+        <div class="container py-3 pb-3">
           <div class="row d-flex justify-content-center align-items-center h-100">
               <div class="row d-flex justify-content-center align-items-center">
                   <div class="col-12 col-md-12 col-lg-6, col-xl-5">
                       <div class="logo-container text-center">
-                          <img class="rounded-circle shadow" src="kam.png" alt="logo" width="100">
-                          <h4 class="text-secondary">KAMBOK LOAN</h4>
+                          <img class="rounded-circle shadow img-fluid" src="kam.png" alt="logo" width="80">
+                          <h4 class="text-secondary ">KAMBOK LOAN</h4>
                       </div>
                   </div>
               </div>
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
               <div class="card form-container" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center">
-                    <div class="form-title p-3 mb-4">
+                <div class="card-body p-3 text-center">
+                    <div class="form-title p-3 ">
                         <h2>Login</h2>
                     </div>
                     <form action="Admin" method="post">
@@ -129,22 +129,6 @@
                         <!-- Register buttons -->
                         <div class="text-center">
                           <p>Don't have account'? <a href="register.jsp">Register</a></p>
-                          <p>or sign up with:</p>
-                          <button type="button" class="btn btn-primary btn-floating mx-1">
-                            <i class="fab fa-facebook-f"></i>
-                          </button>
-                      
-                          <button type="button" class="btn btn-primary btn-floating mx-1">
-                            <i class="fab fa-google"></i>
-                          </button>
-                      
-                          <button type="button" class="btn btn-primary btn-floating mx-1">
-                            <i class="fab fa-twitter"></i>
-                          </button>
-                      
-                          <button type="button" class="btn btn-primary btn-floating mx-1">
-                            <i class="fab fa-github"></i>
-                          </button>
                         </div>
                       </form>    
       
