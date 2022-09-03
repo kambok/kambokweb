@@ -195,9 +195,9 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="register.html">
+        <a class="nav-link" href="staffmanagement.jsp">
           <i class="fa-solid fa-file-pen mx-2"></i>
-          <span class="ml-2">Add users</span>
+          <span class="">Staff Management</span>
         </a>
       </li>
       <li class="nav-item">

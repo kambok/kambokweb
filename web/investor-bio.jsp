@@ -91,6 +91,11 @@
 
                 object-fit: fill;
             }
+            
+            .link{
+                font-size: 14px;
+                font-weight: 500;
+            }
 
 
         </style>
@@ -229,37 +234,37 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="investor-bio.jsp">
                             <i class="fa-solid fa-id-card"></i>
-                            <span class="ml-2">Profile</span>
+                            <span class="ml-1 link">Profile</span>
                         </a>
                     </li>
                     <li class="nav-item  active">
                         <a class="nav-link" aria-current="page" href="investor-account.jsp">
                             <i class="fa-solid fa-building-columns"></i>
-                            <span class="ml-2">Account Info</span>
+                            <span class="ml-1 link">Account Info</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="investor-security.jsp">
                             <i class="fas fa-lock"></i>
-                            <span class="ml-2">Password</span>
+                            <span class="ml-1 link">Password</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="investorpassport.jsp">
                             <i class="fas fa-upload"></i>
-                            <span class="ml-2">Upload Passport</span>
+                            <span class="ml-1 link">Upload Passport</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="investor-tpin.jsp">
                             <i class="fa-solid fa-key"></i>
-                            <span class="ml-2">Transaction Pin</span>
+                            <span class="ml-1 link">Transaction Pin</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="investor-deleteaccount.jsp">
                             <i class="fas fa-trash-alt"></i>
-                            <span class="ml-2">Delete Account</span>
+                            <span class="ml-1 link">Delete Account</span>
                         </a>
                     </li>
                 </ul>

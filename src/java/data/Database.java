@@ -2459,14 +2459,26 @@ public class Database {
 
         try {
             Connection con = myconnection();
-            String sql = "insert into onedrive.investor values (?,?)";
+            String sql = "insert into onedrive.investor values (?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, invest.getEmail());
             ps.setString(2, invest.getWalletId());
+            ps.setString(3, invest.getTranspin());
 
             i = ps.executeUpdate();
         } catch (Exception e) {
         }
+        return i;
+    }
+    
+    public static int saveInvestorTpin(InvestorDetails tpin){
+        int i=0;
+        try{
+            Connection con = myconnection();
+            String sql = "UPDATE onedrive.investor set transpin = '"+tpin.getTranspin()+"' where email = '"+tpin.getEmail()+"'";
+            PreparedStatement ps = con.prepareStatement(sql);
+            i = ps.executeUpdate();
+        }catch(Exception e){}
         return i;
     }
     
@@ -2480,6 +2492,7 @@ public class Database {
             while (rs1.next()) {
                 id.setEmail(rs1.getString(1));
                 id.setWalletId(rs1.getString(2));
+                id.setTranspin(rs1.getString(3));
             }
         } catch (Exception e) {
         }
