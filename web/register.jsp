@@ -76,9 +76,6 @@
             .form-control{
                 outline: none;
             }
-
-
-
         </style>
 
 
