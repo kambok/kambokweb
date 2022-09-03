@@ -12,7 +12,7 @@ public class MyListener implements ServletContextListener{
 static String name="com.mysql.jdbc.Driver";
 static String url="jdbc:mysql://localhost:3306/";
 static String username="root";
-static String password="israel4God";
+static String password="Ab@230596";
 
 public static Connection myconnection(){
     Connection con=null;
