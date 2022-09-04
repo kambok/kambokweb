@@ -432,10 +432,16 @@
                 font-size: 18px;
             }
 
+
+
             .submitButton:hover{
                 background-color: #0db1bd73;
             }
-            
+            @media (min-width: 576px){
+                .col{
+                    border: none;
+                }
+            }
             @media (max-width: 992px){
 
                 .col-md-8 {
@@ -462,6 +468,10 @@
                     height: 45px;
                 }
             }
+            
+            #er{
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -475,7 +485,7 @@
                         = "",
                         loanamount = "", total = "", interest = "", firstname
                         = "", lastname
-                        = "", applicantemail = "", email2 = "",
+                        = "", applicantemail = "", tpin = "",
                         adsAmt = "", adsId = "", adsStatus = "";%>
 
         <%
@@ -483,6 +493,7 @@
             Ads ads = data.Database.GetLoanAdsViaId((String) session.getAttribute("adsId"));
             Wallet wallet = data.Database.getWallet(us.getEmail());
             InvestorDetails investorDetails = data.Database.getInvestor(us.getEmail());
+            
             name = us.getFirstname() + " " + us.getLastname();
             position = us.getPosition();
             email = us.getEmail();
@@ -492,6 +503,8 @@
             } else {
                 response.sendRedirect("index.jsp");
             }
+            InvestorDetails getInvestor = data.Database.getInvestor(us.getEmail());
+            tpin=getInvestor.getTranspin();
         %>
 
 
@@ -520,6 +533,7 @@
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                         Hello, <%=us.getFirstname() + " " + us.getLastname()%>
                     </button>
+                    
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="investor-bio.jsp"><i class="fa-solid fa-gear mx-2 sicon"></i> <span class="txt"> Settings</span></a></li>
                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-envelope mx-2 sicon"></i><span class="txt"> Messages</span></a></li>
@@ -528,9 +542,9 @@
                 </div>
             </div>
         </nav>
-
+                    
         <div class="container-fluid">
-            <nav id="sidebar" class="col-md-4 col-lg-2 d-md-block bg-light sidebar collapse">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="row">
 
                     <div class="position-sticky pt-md-5">
@@ -569,17 +583,17 @@
                         <div class="card shadow">
                             <h5 class="card-header">Total Investment</h5>
                             <div class="card-body">
-                                <h2 class="text-dark display-5">₦550,000.00</h2>
-                                <h5 class="text-success">At 10% rate monthly</h5>
+                                <h3 class="text-dark">₦550,000.00</h3>
+                                <p class="text-success">At 10% rate monthly</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                         <div class="card shadow">
-                            <h5 class="card-header">Total accumulating interest</h5>
+                            <h5 class="card-header">Accumulated interest</h5>
                             <div class="card-body">
-                                <h2 class="display-5 text-dark">₦55,000.00</h2>
-                                <h5 class="text-primary">Accrued Interest</h5>
+                                <h3 class="text-dark">₦55,000.00</h3>
+                                <p class="text-primary">Accrued Interest</p>
                             </div>
                         </div>
                     </div>
@@ -587,8 +601,8 @@
                         <div class="card shadow">
                             <h5 class="card-header">Bonus</h5>
                             <div class="card-body">
-                                <h2 class="display-5 text-dark">₦5,000.00</h2>
-                                <h5 class="text-info">Based on investment pack</h5>
+                                <h3 class="text-dark">₦5,000.00</h3>
+                                <p class="text-info">Based on investment pack</p>
                             </div>
                         </div>
                     </div>
@@ -596,21 +610,19 @@
                         <div class="card shadow">
                             <h5 class="card-header">Investment Pack</h5>
                             <div class="card-body">
-                                <h2 class="text-primary display-5"><i class="fa-solid fa-medal" style="font-size: 30px;"></i> Bronze</h2>
-                                <h5 class="text-secondary ">Investment above ₦1M </h5>
+                                <h2 class="text-primary"><i class="fa-solid fa-medal" style="font-size: 30px;"></i> Bronze</h2>
+                                <p class="text-secondary ">Investment above ₦1M </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
                 <div class="row d-flex justify-content-center align-items-center">
-                    <div class="col-12 col-xl-12 mb-4 mb-lg-0">
-                        <div class="container">
+                    <div class="col-md-12  mb-4 mb-lg-0">
+                        <div class="container-fluid">
                             <div class="row d-flex justify-content-center align-items-center">
-                                
-                                <div class="col-md-12 p-5 invest-container">
-                                    <div class="card p-5 card-design shadow">
-                                        <div class="row d-flex justify-content-between">
+                                <div class="col-md-12">
+                                    <div class="card p-3 card-design shadow">
+                                        <div class="row d-flex justify-content-between align-items-center">
                                             <div class="col-md-6 ">
                                                 <div class="image-container">
                                                     <img src="undraw_Investing.png" class="img-fluid"/>
@@ -620,9 +632,18 @@
                                                 <div class="row">
                                                     <div class="col-md-12 ">
                                                         <div class="card card-details p-3">
-                                                            <p class="text-left"><i class="fas fa-wallet rounded-circle"></i> Wallet Balance </p>
-                                                            <h2 class="text-left text-light">₦<%= wallet.getTotal()%></h2>
-                                                            <a href="investordashboard.jsp" class="btn btn-dark text-left">Fund wallet</a>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <p class="text-left"><i class="fas fa-wallet rounded-circle"></i> Wallet Balance </p>
+                                                                    <h2 class="text-left text-light">₦<%= wallet.getTotal()%></h2>
+                                                                </div>
+                                                                <div>
+                                                                   <p class="text-left"><i class="fas fa-money-bill-transfer rounded-circle"></i> Advertised amount </p>
+                                                                    <h2 class="text-left text-light"> ₦<%= ads.getAdsAmount()%></h2>
+                                                                </div>
+                                                            </div>
+                                                            <a href="investordashboard.jsp" class="my-2 btn btn-dark text-center mx-auto">Fund wallet</a>
+
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 my-4">
@@ -659,13 +680,13 @@
                         <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content p-3">
-                                    
-                                        <div class="d-flex justify-content-space-around align-items-center alert alert-warning alert-dismissible fade shadow" row="alert" width="100%">
-                                            <span><i class="fa-solid fa-exclamation-circle"></i></span>
-                                            &nbsp;&nbsp;<span class=" text-center"><h6>You entered an Incorrect PIN. Try again</h6></span>
-                                            <button type="button" class="alert-btn btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-                                        </div>
-                                   
+
+                                    <div class="d-flex justify-content-space-around align-items-center alert alert-warning alert-dismissible fade shadow" row="alert" width="100%">
+                                        <span><i class="fa-solid fa-exclamation-circle"></i></span>
+                                        &nbsp;&nbsp;<span class=" text-center"><h6>You entered an Incorrect PIN. Try again</h6></span>
+                                        <button type="button" class="alert-btn btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                                    </div>
+
                                     <!--Modal body--> 
                                     <div class="modal-body text-center">
                                         <p style="font-size: 20px; opacity: .8;">You're about to invest ₦<span id="invest-amount" style="letter-spacing:2px; font-size: 25px; font-weight: bolder"></span></p>
@@ -687,11 +708,11 @@
                                     <!--Modal footer--> 
                                     <div class="modal-footer d-flex justify-content-center align-items-center">
                                         <form action="LoanInvest" method="post" >
-                                            <input type="hidden" name="email" id="email" value="<%=us.getEmail() %>">
-                                            <input type="hidden" name="investBal" id="adsAmount" value="<%=ads.getInvestBalance() %>">
+                                            <input type="hidden" name="email" id="email" value="<%=us.getEmail()%>">
+                                            <input type="hidden" name="investBal" id="adsAmount" value="<%=ads.getInvestBalance()%>">
                                             <input type="hidden" name="adsId" id="adsId" value="<%=ads.getAdsID()%>">
                                             <input type="hidden" name="walletBal" id="walletBal" value="<%=wallet.getTotal()%>">
-                                            <input type="hidden" name="walletId" id="walletId" value="<%=investorDetails.getWalletId() %>">
+                                            <input type="hidden" name="walletId" id="walletId" value="<%=investorDetails.getWalletId()%>">
                                             <input type="hidden" name="investAmount2" id="investAmount2" value="">
                                             <button type="button" class='btn btn-danger my-2' data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class='btn btn-light' disabled="true" id="submitBtn" style="margin-left: 50px;">Submit</button>
@@ -856,7 +877,7 @@
                             </div>
 
                             <div class="col-12 col-xl-4">
-
+                                
                                 <div class="card">
                                     <h5 class="card-header">Transaction History</h5>
                                     <div class="card-body">
@@ -921,7 +942,7 @@
             </main>
         </div>
 
-
+            
 
         <!--Owl carousel Jquery cdn-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
@@ -976,7 +997,8 @@
             var alertBtn = document.querySelector(".alert-btn");
             var submitBtn = document.querySelector("#submitBtn");
 
-            var pass = "1234";
+            var pass = <%=tpin%>;
+            
             inputs.forEach(function (input, index) {
                 input.dataset.index = index;
                 input.addEventListener("paste", handleOtpPaste);
@@ -1057,9 +1079,9 @@
         <script type="text/javascript">
             var investAmount = document.getElementById("investAmount");
             var investAmount2 = document.getElementById("investAmount2");
-            const walletBal = Number(document.getElementById("walletBal").value);
-            const adsAmount = Number(document.getElementById("adsAmount").value);
-            if (walletBal === null || walletBal === "null") {
+                    const walletBal = Number(document.getElementById("walletBal").value);
+                    const adsAmount = Number(document.getElementById("adsAmount").value);
+                    if (walletBal === null || walletBal === "null") {
                 walletBal = "0.00";
             }
 

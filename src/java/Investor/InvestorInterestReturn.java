@@ -91,7 +91,7 @@ public class InvestorInterestReturn extends HttpServlet {
                         if(data.Database.InvestmentReturn(investorDetails)==4){
                             out.println("Successfully returned investment");
                         }else{
-                            out.println("Something went wrong!");
+                            out.println("");
                         }
                     }
                     }

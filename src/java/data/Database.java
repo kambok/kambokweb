@@ -1,5 +1,6 @@
 package data;
 
+
 import static data.Database.myconnection;
 import java.io.File;
 import java.io.InputStream;
@@ -23,7 +24,7 @@ public class Database {
     static float total = 0;
     static float deposit = 0;
     static float balance = 0;
-
+    
     public static Connection myconnection() {
         Connection con = null;
         try {
@@ -2661,5 +2662,26 @@ public class Database {
             i+= ps4.executeUpdate();
         }catch(Exception e){}
         return i;
+    }
+    
+    public static InvestorDetails getInvestorCurrentRecord(String email){
+        InvestorDetails id = new InvestorDetails();
+        try{
+            Connection con = myconnection();
+            String sql1 = "SELECT * FROM  onedrive.investmenthistory where email='" + email+ "'";
+            PreparedStatement ps1 = con.prepareStatement(sql1);
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                id.setInvestmentID(rs1.getString(1));
+                id.setEmail(rs1.getString(2));
+                id.setWalletId(rs1.getString(3));
+                id.setInvestmentHistory(rs1.getDouble(4));
+                id.setInterest(rs1.getDouble(5));
+                id.setTotalAmount(rs1.getDouble(6));
+                id.setDate(rs1.getString(7));
+                id.setReturnDate(rs1.getString(8));               
+            }
+        }catch(Exception e){}
+        return id;
     }
 }

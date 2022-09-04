@@ -396,7 +396,8 @@ double totalInvestment = 0;%>
         
         }else{
         response.sendRedirect("index.jsp");
-        } 
+        }
+        InvestorDetails currentRecord = data.Database.getInvestorCurrentRecord(us.getEmail());
         %>
 
 
@@ -533,8 +534,8 @@ double totalInvestment = 0;%>
                                     <div class="col">
 
                                         <h5 class="label text-left"> <span></span> Available Balance</h5>
-                                        <h1 class="amt text-left"><input type="password" value="₦<%=wallet.getTotal()%>" style="background: transparent; border: none; outline: none; font-weight: bold" id="amt" name="amt" readonly="true"></h1>
-                                        <h3 class="ledger text-left">Ledger Balance:<input type="password" value="₦<%=wallet.getTotal()%>" style="background: transparent; border: none; outline: none; font-weight: normal; -webkit-text-security: asterisk" id="ledger" readonly="true">
+                                        <h1 class="amt text-left"><input  type="password" value="₦<%=wallet.getTotal()%>" style="background: transparent; border: none; outline: none; font-weight: bold" id="amt" name="amt" readonly="true"></h1>
+                                        <h3 class="ledger text-left">Ledger Balance:<input  type="password" value="₦<%=wallet.getTotal()%>" style="background: transparent; border: none; outline: none; font-weight: normal; -webkit-text-security: asterisk" id="ledger" readonly="true">
                                             <span class="hide-figure d-flex justify-content-start p-2"><i class="fas fa-eye" style="cursor: pointer" id="hide-figure" onclick="toggle()"></i></span>
                                         </h3>
                                         <script>
@@ -577,7 +578,7 @@ double totalInvestment = 0;%>
                                     <div class="col-md-12 p-3">
                                         <div class="card investment-card p-5">
                                             <h2 class="investment-title my-3">Current Investments</h2>
-                                            <p class="description">Investment ID: <span class="text-info">234683954AD</span></p>
+                                            <p class="description">Investment ID: <span class="text-info"><%=currentRecord.getInvestmentID() %></span></p>
                                             <div class="col investment-content">
                                                 <div class="owl-carousel owl-theme my-4 ">
                                                     <div class="item p-2">
@@ -587,7 +588,7 @@ double totalInvestment = 0;%>
                                                                     <div class="col-md-12 text-left p-3 ">
                                                                         <div class="col"><p class="sub-title">Invested Amount</p></div>
                                                                         <div class="col d-flex justify-content-between">
-                                                                            <h2 class="card-content">₦75,000.00</h2>
+                                                                            <h2 id="amount" class="card-content">₦<%=currentRecord.getInvestmentHistory() %></h2>
                                                                             <h2 id="bg-icon" class="rounded-circle bg-icon-1 d-flex justify-content-center align-items-center"><i class="fa-solid fa-paper-plane text-light"></i></h2>
                                                                         </div>
                                                                         <div class="col"> <p class="sub-title">At the rate of 10% per month</p></div>
@@ -605,7 +606,7 @@ double totalInvestment = 0;%>
                                                                     <div class="col-md-12 text-left p-3 ">
                                                                         <div class="col"><p class="sub-title">Interest</p></div>
                                                                         <div class="col d-flex justify-content-between">
-                                                                            <h2 class="card-content">₦7,500.00</h2>
+                                                                            <h2 id="interest" class="card-content">₦<%=currentRecord.getInterest() %></h2>
                                                                             <h2 id="bg-icon" class="rounded-circle bg-icon-2 d-flex justify-content-center align-items-center"><i class="fa-solid fa-medal text-light"></i></h2>
                                                                         </div>
                                                                         <div class="col"> <p class="sub-title">Accumulated interest after 30days</p></div>
@@ -623,7 +624,7 @@ double totalInvestment = 0;%>
                                                                     <div class="col-md-12 text-left p-3 ">
                                                                         <div class="col"><p class="sub-title">Total</p></div>
                                                                         <div class="col d-flex justify-content-between">
-                                                                            <h2 class="card-content">₦82,500.00</h2>
+                                                                            <h2 id="total" class="card-content">₦<%=currentRecord.getTotalAmount() %></h2>
                                                                             <h2 id="bg-icon" class="rounded-circle bg-icon-3 d-flex justify-content-center align-items-center"><i class="fa-solid fa-money-bill-trend-up text-light"></i></h2>
                                                                         </div>
                                                                         <div class="col"> <p class="sub-title">Invested amount + Interest after 30 days</p></div>
@@ -639,9 +640,9 @@ double totalInvestment = 0;%>
                                                             <div class="card-body text-center">
                                                                 <div class="row d-flex justify-content-between">
                                                                     <div class="col-md-12 text-left p-3 ">
-                                                                        <div class="col"><p class="sub-title">Investment Dates</p></div>
+                                                                        <div class="col"><p class="sub-title">Investment Duration</p></div>
                                                                         <div class="col d-flex justify-content-between">
-                                                                            <h2 class="card-content">03/08/2022 - 03/09/2022</h2>
+                                                                            <h2 class="card-content"><%=currentRecord.getDate() %> - <%=currentRecord.getReturnDate() %></h2>
                                                                             <h2 id="bg-icon" class="rounded-circle bg-icon-4 d-flex justify-content-center align-items-center"><i class="fa-solid fa-calendar-check text-light"></i></h2>
                                                                         </div>
                                                                         <div class="col"> <p class="sub-title">Any investment done after 10:00pm of that day will automatically roll over</p></div>
@@ -699,6 +700,14 @@ double totalInvestment = 0;%>
                                                         }
                                                     }
                                                 });
+                                                
+                                                document.getElementById("total").innerHTML = document.getElementById("total").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+                                                document.getElementById("amount").innerHTML = document.getElementById("amount").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+                                                document.getElementById("interest").innerHTML = document.getElementById("interest").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+                                                document.getElementById("amt").value = document.getElementById("amt").value.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+                                                document.getElementById("ledger").value = document.getElementById("ledger").value.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+//                                              
+                                                
 
                                             </script>
 
