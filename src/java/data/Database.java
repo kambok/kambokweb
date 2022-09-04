@@ -47,9 +47,9 @@ import org.apache.commons.fileupload.FileItem;
 
 public class Database {
 static String name="com.mysql.jdbc.Driver";
-static String url="jdbc:mysql://localhost:3306/onedrive";
+static String url="jdbc:mysql://localhost:3306/";
 static String username="root";
-static String password="Ab@230596";
+static String password="kambok123";
 static float total=0;
 static float  deposit=0;
 static float  balance=0;
@@ -1007,23 +1007,35 @@ public static Wallet getsinglewalletReceipt(String pin){
   return wu;
 }
 
-public static double setadminCapital(AdmininvestmentDetails ad ){
- int i=0;
- double capitalamount=0.0;
- try{
+
+public static AdmininvestmentDetails getAdminRecord(AdmininvestmentDetails ad){
+     
+    AdmininvestmentDetails and=new AdmininvestmentDetails();
+    int i=0;
+   double cap=0.0;
+   double total=0.0;
+   double debit=0.0;
+    try{
     Connection con=myconnection();
-    String admin="select * from onedrive.admininvestment where walletno='"+ad.getWalletno()+"' AND email='Loan@kambok.com' OR email='"+ad.getEmail()+"'";
-    PreparedStatement ps= con.prepareStatement(admin);
-    ps.executeUpdate();
-    ResultSet rs = ps.executeQuery();
+    //String url="select * from onedrive.admininvestment";
+    
+    String sqll="select * from onedrive.admininvestment where email='Loan@kambok.com'";
+    PreparedStatement pss = con.prepareStatement(sqll);
+      ResultSet rs = pss.executeQuery();
     while(rs.next()){
-     capitalamount=rs.getDouble(11);
-     }
-     capitalamount+=ad.getCapitalinvest();
-    String sql ="update onedrive.admininvestment set capitalinvest='"+capitalamount+"' where email='"+ad.getEmail()+"'";
-    PreparedStatement pss=con.prepareStatement(sql);
-    pss.executeUpdate();
- 
+     and.setWalletno(rs.getString(1));
+     and.setCapitalinvest(rs.getDouble(11));
+    }
+    
+     String lo ="update onedrive.admininvestment set capitalinvest=? where walletno=?";
+    PreparedStatement ppp=con.prepareStatement(lo);
+    cap=and.getCapitalinvest();
+    double newamount=ad.getCapitalinvest();
+    double ftotal=cap+newamount;
+    ppp.setDouble(1, ftotal);
+    ppp.setString(2, "3000000002");
+    ppp.executeUpdate();
+    
     String sql2="insert into onedrive.admininvesthistory values(?,?,?,?,?,?)";   
     PreparedStatement pss2=con.prepareStatement(sql2);
     pss2.setString(1, ad.getWalletno());
@@ -1031,16 +1043,115 @@ public static double setadminCapital(AdmininvestmentDetails ad ){
     pss2.setString(3, ad.getType());
     pss2.setString(4, ad.getStatus());
     pss2.setDouble(5, ad.getCapitalinvest());
-    pss2.setDouble(6, capitalamount);
+    pss2.setDouble(6, ftotal);
     i+=pss2.executeUpdate(); 
     
- }catch(Exception ex){
- ex.printStackTrace();
- }
-return capitalamount;
+    }catch(Exception ex ){
+    }
+     
+
+return and;
+}
+
+public static double gettotal(){
+    double bal=0.0;
+  try{
+    Connection con=myconnection();
+    //String url="select * from onedrive.admininvestment";
+    
+    String sqll="select * from onedrive.admininvestment where email='Loan@kambok.com'";
+    PreparedStatement pss = con.prepareStatement(sqll);
+      ResultSet rs = pss.executeQuery();
+    while(rs.next()){
+     bal=rs.getDouble(11);
+    }
+  }catch(Exception ex){}
+  return bal;
 }
 
 
+public static double getmonthly(){
+    double bal=0.0;
+  try{
+    Connection con=myconnection();
+    //String url="select * from onedrive.admininvestment";
+    
+    String sqll="select * from onedrive.admininvestment where email='Loan@kambok.com'";
+    PreparedStatement pss = con.prepareStatement(sqll);
+      ResultSet rs = pss.executeQuery();
+    while(rs.next()){
+     bal=rs.getDouble(9);
+    }
+  }catch(Exception ex){}
+  return bal;
+}
+
+public static double getmonthlyreturn(){
+    double bal=0.0;
+  try{
+    Connection con=myconnection();
+    //String url="select * from onedrive.admininvestment";
+    
+    String sqll="select * from onedrive.admininvestment where email='Loan@kambok.com'";
+    PreparedStatement pss = con.prepareStatement(sqll);
+      ResultSet rs = pss.executeQuery();
+    while(rs.next()){
+     bal=rs.getDouble(12);
+    }
+  }catch(Exception ex){}
+  return bal;
+}
+public static double updatemonthly(double amt){
+     AdmininvestmentDetails and=new AdmininvestmentDetails();
+    int i=0;
+  
+    double bal=0.0;
+  try{
+    Connection con=myconnection();
+    //String url="select * from onedrive.admininvestment";
+    
+    String sqll="select * from onedrive.admininvestment where email='Loan@kambok.com'";
+    PreparedStatement pss = con.prepareStatement(sqll);
+      ResultSet rs = pss.executeQuery();
+    while(rs.next()){
+     bal=rs.getDouble(9);
+    }
+    String lo ="update onedrive.admininvestment set monthlyinvest=? where walletno=?";
+    PreparedStatement ppp=con.prepareStatement(lo);
+   
+    double ftotal=bal+amt;
+    ppp.setDouble(1, ftotal);
+    ppp.setString(2, "3000000002");
+    ppp.executeUpdate();
+  }catch(Exception ex){}
+  return bal;
+}
+
+public static double monthlyreturn(double amt){
+     AdmininvestmentDetails and=new AdmininvestmentDetails();
+    int i=0;
+  
+    double bal=0.0;
+  try{
+    Connection con=myconnection();
+    //String url="select * from onedrive.admininvestment";
+    
+    String sqll="select * from onedrive.admininvestment where email='Loan@kambok.com'";
+    PreparedStatement pss = con.prepareStatement(sqll);
+      ResultSet rs = pss.executeQuery();
+    while(rs.next()){
+     bal=rs.getDouble(12);
+    }
+    String lo ="update onedrive.admininvestment set monthlyreturn=? where walletno=?";
+    PreparedStatement ppp=con.prepareStatement(lo);
+   
+    double ftotal=bal+amt;
+    ppp.setDouble(1, ftotal);
+    ppp.setString(2, "3000000002");
+    ppp.executeUpdate();
+  }catch(Exception ex){}
+  return bal;
+}
 public static int updatewallet(Wallet w){
    int i=0;
    double credit=0.0;
@@ -1058,6 +1169,7 @@ public static int updatewallet(Wallet w){
        debit=rs.getDouble(4);
        total=rs.getDouble(5);
     }
+    
     if(debit<=0){
     String sql = "update onedrive.wallet set credit=?,total=? where acctno=?";
     PreparedStatement ps = con.prepareStatement(sql);
@@ -2077,9 +2189,9 @@ public static int saveSendPayment(MakePayment mk){
        try{
      Connection con=myconnection();
        
-      String sqlloan="select * from onedrive.wallet where email='Loan@kambok.com'";
+    String sqlloan="select * from onedrive.wallet where email='Loan@kambok.com'";
     PreparedStatement ploan = con.prepareStatement(sqlloan);
-      ResultSet rloan = ploan.executeQuery();
+    ResultSet rloan = ploan.executeQuery();
     while(rloan.next()){
        balloan=rloan.getDouble(5);
        loanacctno=rloan.getString(2);
@@ -2268,62 +2380,6 @@ public static AdminUser viewSingleStaff(String email){
 }
 
 
-public static int LoanAds(Ads ads){
-    int i=0;
-    
-    try{
-       Connection con=myconnection();
-       String sql = "insert into onedrive.loanads values (?,?,?,?,?)";
-       PreparedStatement ps = con.prepareStatement(sql);
-       ps.setString(1, ads.getAdsAmount());
-       ps.setString(2, ads.getDate());
-       ps.setString(3, ads.getAdsID());
-       ps.setString(4, ads.getAdsPackage());
-       ps.setString(5, ads.getAdsStatus());
-       
-       i = ps.executeUpdate();
-    }catch(Exception e){}
-    return i;
-}
-
-public static List<Ads> GetLoanAds(){
-    List<Ads> ads = new ArrayList<>();
-    try{
-    Connection con=myconnection();
-    String sql="select * from onedrive.loanads";
-    PreparedStatement  ps=con.prepareStatement(sql);
-    ResultSet rs=ps.executeQuery();
-    
-    while(rs.next()){
-        Ads ad = new Ads();
-        ad.setAdsAmount(rs.getString(1));
-        ad.setDate(rs.getString(2));
-        ad.setAdsID(rs.getString(3));
-        ad.setAdsPackage(rs.getString(4));
-        ad.setAdsStatus(rs.getString(5));
-        ads.add(ad);
-    }
-    }catch(Exception e){}
-    return ads;
-}
-
-public static Ads GetLoanAdsViaId(String adsId){
-    Ads ads = new Ads();
-    try{
-       Connection con=myconnection(); 
-        String sql1 = "SELECT * FROM onedrive.loanads where ads_id='"+adsId+"'";
-        PreparedStatement ps1 = con.prepareStatement(sql1);
-        ResultSet rs=ps1.executeQuery();
-        while(rs.next()){
-            ads.setAdsAmount(rs.getString(1));
-            ads.setDate(rs.getString(2));
-            ads.setAdsID(rs.getString(3));
-            ads.setAdsPackage(rs.getString(4));
-            ads.setAdsStatus(rs.getString(5));
-        }
-    }catch(Exception e){}
-    return ads;
-}
 
 public static Wallet getWallet(String email){
     Wallet wallet = new Wallet();

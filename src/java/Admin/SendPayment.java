@@ -63,6 +63,7 @@ public class SendPayment extends HttpServlet {
               pmt.setPaymentmethod(request.getParameter("pmethod"));
               
              if(data.Database.saveSendPayment(pmt)==2){
+             data.Database.updatemonthly(Double.parseDouble(request.getParameter("camt")));
              response.sendRedirect("sendpaymentsuccessful.jsp");
              }else if(data.Database.saveSendPayment(pmt)==3){
               out.println("no funds");

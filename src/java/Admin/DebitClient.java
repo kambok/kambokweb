@@ -28,6 +28,10 @@ public class DebitClient extends HttpServlet {
           LocalDate date = LocalDate.now();
           String mydate=String.valueOf(date);
             Wallet w=new Wallet();
+            
+            if(email.contains("Loan@kambok.com") || id.contains("3000000002") || email.contains("3000000002")|| id.contains("Loan@kambok.com")){
+            out.println("access denied");
+            }else{
             if(id.contains("@")){
            
             w.setAccount(email);
@@ -53,6 +57,7 @@ public class DebitClient extends HttpServlet {
             java.util.Date daten = new java.util.Date();  
                hp.setAttribute("time", String.valueOf(date)); 
             if(data.Database.debitclient(w,hp)==2){
+                data.Database.monthlyreturn(Double.parseDouble(amount));
                 out.println("<big>succesful</big><br />");
                 out.println("<a href='Receipt.jsp?pin="+hp.getAttribute("pin")+"'>Print Receipt</a>");
             }else{
@@ -60,7 +65,7 @@ public class DebitClient extends HttpServlet {
             }
             
         }
+        
     }
-
-   
+    }
 }

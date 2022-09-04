@@ -1,15 +1,25 @@
 package model;
 
 public class Ads {
-    String adsAmount, date, adsID, adsPackage, adsStatus;
+    String  date, adsID, adsPackage, adsStatus;
+private double investBalance,adsAmount;
 
-    public String getAdsAmount() {
+    public double getInvestBalance() {
+        return investBalance;
+    }
+
+    public void setInvestBalance(double investBalance) {
+        this.investBalance = investBalance;
+    }
+
+    public double getAdsAmount() {
         return adsAmount;
     }
 
-    public void setAdsAmount(String adsAmount) {
+    public void setAdsAmount(double adsAmount) {
         this.adsAmount = adsAmount;
     }
+ 
 
     public String getDate() {
         return date;

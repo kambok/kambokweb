@@ -11,17 +11,9 @@ package model;
  */
 public class AdmininvestmentDetails {
  
-    String walletno,email,refid,date,status,type;
- int month,days,years;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
- double monthlyinvest,yearlyreturn,capitalinvest,monthlyreturn;
+    private String walletno,email,refid,date,status,type;
+  private int month,days,years;
+  private double monthlyinvest,yearlyreturn,capitalinvest,monthlyreturn;
 
     public String getWalletno() {
         return walletno;
@@ -61,6 +53,14 @@ public class AdmininvestmentDetails {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getMonth() {
@@ -118,5 +118,7 @@ public class AdmininvestmentDetails {
     public void setMonthlyreturn(double monthlyreturn) {
         this.monthlyreturn = monthlyreturn;
     }
+
+   
  
 }

@@ -38,7 +38,7 @@ public class CreditAccount extends HttpServlet {
             w.setStatus("cr");
            
             int i=data.Database.updatewallet(w);
-            if(email.contains("@")){
+            
             AdmininvestmentDetails a=new AdmininvestmentDetails();
              a.setEmail(email);
              a.setCapitalinvest(Double.parseDouble(amount));
@@ -46,10 +46,10 @@ public class CreditAccount extends HttpServlet {
              a.setDate(mydate);
              a.setType("Cr");
              a.setWalletno(id);
-             data.Database.setadminCapital(a);
-            }
+            AdmininvestmentDetails dmt=data.Database.getAdminRecord(a);
+           
             if(i==1){
-           out.println("Successful");
+            out.println("Successful");
             }else{
                 out.println("something wentwrong");
             }

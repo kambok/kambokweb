@@ -271,7 +271,7 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
           <div class="card-body">
             <h5 class="card-title">Wallet ID: <%=dfin.getLoanacctno()%></h5>
             <p class="card-text">Wallet Name: <%=dfin.getLoanacctname()%></p>
-            <p class="card-text text-success">Wallet Amount: <%=dfin.getLoanamount()%></p>
+            <p class="card-text text-success">Wallet Amount: <%=dfin.getLoanamount()%>0</p>
           </div>
         </div>
   </div>
@@ -293,7 +293,7 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
           <h5 class="card-header text-warning" >Monthly Invest</h5>
           <div class="card-body">
             <h5 class="card-title">15 Nos</h5>
-            <p class="card-text">Total worth: N140,000.00</p>
+            <p class="card-text">Total worth:  <%=data.Database.getmonthly()%>0</p>
             <p class="card-text text-success"><a href="#">View history</a></p>
           </div>
         </div>
@@ -303,7 +303,7 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
           <h5 class="card-header text-primary">Capital Amount</h5>
           <div class="card-body">
             <h5 class="card-title">10 Nos</h5>
-            <p class="card-text">Total worth: N55,000.00</p>
+            <p class="card-text">Total worth: <%=data.Database.gettotal()%>0</p>
             <p class="card-text text-primary"><a href="#">View history</a></p>
           </div>
         </div>
@@ -313,7 +313,7 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
           <h5 class="card-header text-dark" >Monthly Return</h5>
           <div class="card-body">
             <h5 class="card-title">4 Nos</h5>
-            <p class="card-text">Total worth: N40,000.00</p>
+            <p class="card-text">Total worth: <%=data.Database.getmonthlyreturn()%>0</p>
             <p class="card-text text-danger"><a href="#">View history</a></p>
           </div>
         </div>
