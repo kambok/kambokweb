@@ -623,7 +623,7 @@
                                 <div class="col-md-12">
                                     <div class="card p-3 card-design shadow">
                                         <div class="row d-flex justify-content-between align-items-center">
-                                            <div class="col-md-6 ">
+                                            <div class="col-md-6 d-none d-md-block ">
                                                 <div class="image-container">
                                                     <img src="undraw_Investing.png" class="img-fluid"/>
                                                 </div>
@@ -631,14 +631,14 @@
                                             <div class="col-md-6 ">
                                                 <div class="row">
                                                     <div class="col-md-12 ">
-                                                        <div class="card card-details p-3">
-                                                            <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="card card-details p-3 container-fluid">
+                                                            <div class="justify-content-between align-items-center d-block d-md-flex">
                                                                 <div>
-                                                                    <p class="text-left"><i class="fas fa-wallet rounded-circle"></i> Wallet Balance </p>
+                                                                    <p class="text-left py-3 pb-0"><i class="fas fa-wallet rounded-circle d-none d-md-inline-block"></i> Wallet Balance </p>
                                                                     <h2 class="text-left text-light" id="wallet-amt">₦<%= wallet.getTotal()%></h2>
                                                                 </div>
                                                                 <div>
-                                                                    <p class="text-left"><i class="fas fa-money-bill-transfer rounded-circle"></i> Advertised amount </p>
+                                                                    <p class="text-left text-danger py-3 pb-0"><i class="fas fa-money-bill-transfer rounded-circle d-none d-md-inline-block"></i> Advertised amount </p>
                                                                     <h2 class="text-left text-light" id="amt"> ₦<%= ads.getAdsAmount()%></h2>
                                                                 </div>
                                                             </div>
@@ -976,6 +976,7 @@
                                             });
         document.getElementById("wallet-amt").innerHTML = document.getElementById("wallet-amt").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");                                    
         document.getElementById("amt").innerHTML = document.getElementById("amt").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");                                    
+     
 
         </script>
 
@@ -1068,7 +1069,7 @@
                 var investAmount = document.getElementById("investAmount");
                 var investAmount2 = document.getElementById("investAmount2");
                 var span = document.getElementById("invest-amount");
-                span.innerHTML = investAmount.value;
+                span.innerHTML = investAmount.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");;
                 investAmount2.value = investAmount.value;
             }
 
