@@ -172,6 +172,26 @@
         <servlet-name>LoanAds</servlet-name>
         <servlet-class>Admin.LoanAds</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SetAuthorizationPin</servlet-name>
+        <servlet-class>Investor.SetAuthorizationPin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>viewStaff</servlet-name>
+        <servlet-class>Admin.viewStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>saveEditStaff</servlet-name>
+        <servlet-class>Admin.saveEditStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteStaff</servlet-name>
+        <servlet-class>Admin.DeleteStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>edit</servlet-name>
+        <servlet-class>Admin.edit</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Adduser</servlet-name>
         <url-pattern>/Adduser</url-pattern>
@@ -355,6 +375,26 @@
     <servlet-mapping>
         <servlet-name>LoanAds</servlet-name>
         <url-pattern>/LoanAds</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetAuthorizationPin</servlet-name>
+        <url-pattern>/SetAuthorizationPin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>viewStaff</servlet-name>
+        <url-pattern>/viewStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>saveEditStaff</servlet-name>
+        <url-pattern>/saveEditStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStaff</servlet-name>
+        <url-pattern>/DeleteStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>edit</servlet-name>
+        <url-pattern>/edit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -265,7 +265,8 @@ main .model-container .model{
                 <div class="col-12 col-md-8">
                     <h2 class="h2 text-center text-info">Authorization PIN</h2>
                     <p class="text-danger text-center"><span><i class="fa-solid fa-triangle-exclamation text-warning"></i></span> Do not share this pin with anybody. Keep it safe</p>
-                <br><br>
+                    
+                    <br><br>
                 <form action="investor-tpin.jsp" method="" id="myform">                                            
                         <!-- Confirm Password input -->
                         <div class="form-outline mb-4">
@@ -276,7 +277,7 @@ main .model-container .model{
                                             <span><i class="fa-solid fa-key"></i></span>
                                         </span>                    
                                     </div>
-                                    <input type="password" class="form-control" placeholder="Enter Authorization Pin" id= "tpin" required="required" maxlength="4" name="tpin">
+                                    <input type="password" class="form-control" placeholder="Enter 4 digit Pin" id= "tpin" required="required" maxlength="4" name="tpin">
                                     
                                 </div>
                                 <h6 style="margin-top: 5px; float: right; color: #4a4a4a; font-size: 18px; font-weight: normal;" class="text-secondary"><span style="font-weight: bold;" id="input-counter"></span>/4</h6>
@@ -325,18 +326,19 @@ main .model-container .model{
             <div class="model-container d-flex justify-content-center align-items-center" id="modelContainer">
                <div class="row">
                    <div class="col-md-5 col-sm-12 col-xs-12"></div>
-                <div class="col-md-5 col-sm-7 col-xs-7 model text-center  ">
-                   <h3 class="text-center text-info">Set Authorization PIN</h3>
-                    <p>You're about to set your transaction pin</p>
-                    <h5>Are you sure?</h5>
+                <div class="col-md-5 col-sm-7 col-xs-7 model ">
+                   <h3 class="text-center text-info text-center">Set Authorization PIN</h3>
+                    <p class="text-center">You're about to set your transaction pin</p>
                     <br><br>
-                    <form action="Investor" method="post">
+                    <form action="SetAuthorizationPin" method="post">
+                        <label class="input-label text-left">Enter your password to continue</label>
                         <input type="password" class="form-control" placeholder="Enter Password" id= "pass" required="required" style="height: 55px;" name="password" onmouseleave="validatePass()">
                         <p class="text-danger" id="r"></p>
                     <input type="hidden" name="tpin" id="pin">
+                    <input type="hidden" name="email" value="<%=us.getEmail() %>">
                     <input type="hidden" name="pass" id="1" visible="false">
                     <br><br>
-                     <button type="submit"  class="btn btn-success p-2" style="width: 100%; font-size: 20px; font-weight: bold;" id="submit">Yes</button>
+                     <button type="submit"  class="btn btn-success p-2" style="width: 100%; font-size: 20px; font-weight: bold;" id="submit">Continue</button>
                     </form>
                      <span id="close-btn" class="close">X</span>
                    </div>

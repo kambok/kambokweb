@@ -39,6 +39,7 @@ public class Adduser extends HttpServlet {
                 InvestorDetails id = new InvestorDetails();
                 id.setEmail(email);
                 id.setWalletId(WalletID.referenceCode());
+                id.setTranspin("pin");
                 if(data.Database.Investor(id)==1 && data.Database.saveAdminuser(ad)==4){
                     out.print(WalletID.referenceCode());
                     out.println("<head><style>b{color:green;}</style></head>");    
