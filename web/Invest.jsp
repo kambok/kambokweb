@@ -468,7 +468,7 @@
                     height: 45px;
                 }
             }
-            
+
             #er{
                 display: none;
             }
@@ -493,7 +493,7 @@
             Ads ads = data.Database.GetLoanAdsViaId((String) session.getAttribute("adsId"));
             Wallet wallet = data.Database.getWallet(us.getEmail());
             InvestorDetails investorDetails = data.Database.getInvestor(us.getEmail());
-            
+
             name = us.getFirstname() + " " + us.getLastname();
             position = us.getPosition();
             email = us.getEmail();
@@ -504,7 +504,7 @@
                 response.sendRedirect("index.jsp");
             }
             InvestorDetails getInvestor = data.Database.getInvestor(us.getEmail());
-            tpin=getInvestor.getTranspin();
+            tpin = getInvestor.getTranspin();
         %>
 
 
@@ -533,7 +533,7 @@
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                         Hello, <%=us.getFirstname() + " " + us.getLastname()%>
                     </button>
-                    
+
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="investor-bio.jsp"><i class="fa-solid fa-gear mx-2 sicon"></i> <span class="txt"> Settings</span></a></li>
                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-envelope mx-2 sicon"></i><span class="txt"> Messages</span></a></li>
@@ -542,7 +542,7 @@
                 </div>
             </div>
         </nav>
-                    
+
         <div class="container-fluid">
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="row">
@@ -635,11 +635,11 @@
                                                             <div class="d-flex justify-content-between align-items-center">
                                                                 <div>
                                                                     <p class="text-left"><i class="fas fa-wallet rounded-circle"></i> Wallet Balance </p>
-                                                                    <h2 class="text-left text-light">₦<%= wallet.getTotal()%></h2>
+                                                                    <h2 class="text-left text-light" id="wallet-amt">₦<%= wallet.getTotal()%></h2>
                                                                 </div>
                                                                 <div>
-                                                                   <p class="text-left"><i class="fas fa-money-bill-transfer rounded-circle"></i> Advertised amount </p>
-                                                                    <h2 class="text-left text-light"> ₦<%= ads.getAdsAmount()%></h2>
+                                                                    <p class="text-left"><i class="fas fa-money-bill-transfer rounded-circle"></i> Advertised amount </p>
+                                                                    <h2 class="text-left text-light" id="amt"> ₦<%= ads.getAdsAmount()%></h2>
                                                                 </div>
                                                             </div>
                                                             <a href="investordashboard.jsp" class="my-2 btn btn-dark text-center mx-auto">Fund wallet</a>
@@ -877,7 +877,7 @@
                             </div>
 
                             <div class="col-12 col-xl-4">
-                                
+
                                 <div class="card">
                                     <h5 class="card-header">Transaction History</h5>
                                     <div class="card-body">
@@ -899,22 +899,22 @@
                                             var yValues = [f, a, b, c];
                                             var barColors = ["teal", "green", "orange", "gold"];
                                             new Chart("myChart", {
-                                                type: "bar",
-                                                data: {
+                                            type: "bar",
+                                                    data: {
                                                     labels: xValues,
-                                                    datasets: [{
+                                                            datasets: [{
                                                             backgroundColor: barColors,
-                                                            data: yValues
-                                                        }]
-                                                },
-                                                options: {
+                                                                    data: yValues
+                                                            }]
+                                                    },
+                                                    options: {
                                                     legend: {display: false},
-                                                    title: {
-                                                        display: true,
-                                                        text: "Transaction Analysis"
+                                                            title: {
+                                                            display: true,
+                                                                    text: "Transaction Analysis"
+                                                            }
                                                     }
-                                                }
-                                            });</script>
+                                        </script>
 
                                     </div>
                                 </div>
@@ -942,7 +942,7 @@
             </main>
         </div>
 
-            
+
 
         <!--Owl carousel Jquery cdn-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
@@ -974,7 +974,8 @@
                                                     }
                                                 }
                                             });
-
+        document.getElementById("wallet-amt").innerHTML = document.getElementById("wallet-amt").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");                                    
+        document.getElementById("amt").innerHTML = document.getElementById("amt").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");                                    
 
         </script>
 
@@ -998,7 +999,7 @@
             var submitBtn = document.querySelector("#submitBtn");
 
             var pass = <%=tpin%>;
-            
+
             inputs.forEach(function (input, index) {
                 input.dataset.index = index;
                 input.addEventListener("paste", handleOtpPaste);
