@@ -450,16 +450,16 @@
                         <div class="card shadow">
                             <h5 class="card-header">Total Investment</h5>
                             <div class="card-body">
-                                <h2 class="text-dark display-5">₦550,000.00</h2>
+                                <h2 class="text-dark">₦550,000.00</h2>
                                 <h5 class="text-success">At 10% rate monthly</h5>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                         <div class="card shadow">
-                            <h5 class="card-header">Total accumulating interest</h5>
+                            <h5 class="card-header">Accumulated interest</h5>
                             <div class="card-body">
-                                <h2 class="display-5 text-dark">₦55,000.00</h2>
+                                <h2 class="text-dark">₦55,000.00</h2>
                                 <h5 class="text-primary">Accrued Interest</h5>
                             </div>
                         </div>
@@ -468,7 +468,7 @@
                         <div class="card shadow">
                             <h5 class="card-header">Bonus</h5>
                             <div class="card-body">
-                                <h2 class="display-5 text-dark">₦5,000.00</h2>
+                                <h2 class="text-dark">₦5,000.00</h2>
                                 <h5 class="text-info">Based on investment pack</h5>
                             </div>
                         </div>
@@ -477,7 +477,7 @@
                         <div class="card shadow">
                             <h5 class="card-header">Investment Pack</h5>
                             <div class="card-body">
-                                <h2 class="text-primary display-5"><i class="fa-solid fa-medal" style="font-size: 30px;"></i> Bronze</h2>
+                                <h2 class="text-primary"><i class="fa-solid fa-medal" style="font-size: 30px;"></i> Bronze</h2>
                                 <h5 class="text-secondary ">Investment above ₦1M </h5>
                             </div>
                         </div>
@@ -490,6 +490,7 @@
                         <section class="adverts">
                             <div class="container-fluid my-5">
                                 <h2 class="header text-left display-5 mb-3">Available Loan Adverts</h2>
+                                <marquee behavior="sliding" direction="left" class='text-danger'><b>Note:</b> All available investment ads are on the basis of first-come-first-serve. No favourism, only quick finger. If you miss an investment opportunity today, come early tomorrow. &#128525;</marquee>
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-md-11 p-4">
                                         <div class="owl-carousel owl-theme ">
@@ -798,7 +799,7 @@
             $('.owl-carousel').owlCarousel({
                 autoplay: true,
                 loop: true,
-                slideSpeed: 4000,
+                slideSpeed: 1000,
                 margin: 10,
                 nav: true,
                 responsive: {
