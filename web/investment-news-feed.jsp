@@ -533,7 +533,7 @@
                                                         out.println("</div>");
 
                                                         out.println("<input type='hidden' name='adsId' value='"+ads.getAdsID()+"'>");
-                                                        out.println("<h5 class='card-title'>₦"+ ads.getInvestBalance()+ "</h5>");
+                                                        out.println("<h5 class='card-title ads-amount'>₦"+ ads.getInvestBalance()+ "</h5>");
                                                         out.println("<p class='card-text'>Get a 10% interest upon any amount invested at the end of 30days</p>");
                                                         out.println("<form action='GetInvestInfo' method='post'><input type='hidden' name='adsId' value='"+ads.getAdsID()+"'><button type='submit' class='btn btn-info invest-btn'>Invest Now</button></form>");
 //                                                        out.println("<a href='Invest.jsp' class='btn btn-info invest-btn'>Invest Now</a>");
@@ -747,6 +747,12 @@
                                                     }
                                                 }
                                             });
+                                            
+                                            var adAmount = document.getElementsByClassName("ads-amount");
+                                            for(var i=0; i<adAmount.length; i++){
+                                                adAmount[i].innerHTML = adAmount[i].innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+                                            }
+                                                                                
                                         </script>
 
                                     </div>
