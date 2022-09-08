@@ -503,7 +503,7 @@ double totalInvestment = 0;%>
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                         <div class="card shadow">
-                            <h5 class="card-header">Total accumulating interest</h5>
+                            <h5 class="card-header">Accumulated interest</h5>
                             <div class="card-body">
                                 <h5 class="card-title">₦55,000.00</h5>
                                 <p class="card-text text-primary display-5">Accrued Interest</p>
@@ -801,6 +801,11 @@ double totalInvestment = 0;%>
                                                         }
                                                     }
                                                 })
+                                                
+//           function timedRefresh(timeoutPeriod){
+//               setTimeout("location.reload(true);", timeoutPeriod);
+//           }
+//           window.onload = timedRefresh(1000);
         </script>
     </body>
 </html>

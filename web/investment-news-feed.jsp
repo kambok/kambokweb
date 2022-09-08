@@ -348,6 +348,12 @@
                     height: 45px;
                 }
             }
+            
+            .fa-check{
+                font-weight: bold;
+                font-size: 37px;
+            }
+         
         </style>
     </head>
     <body>
@@ -392,12 +398,19 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-
+                    
             <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
                 <div class="mr-3 mt-1">
 
                 </div>
                 <div class="dropdown">
+                    <!--Alert-->
+                    <div class="d-flex justify-content-space-around d-none show align-items-center alert alert-success alert-dismissible fade shadow" row="alert" width="70%">
+                       
+                        &nbsp;&nbsp;<span class=" text-center"><i class="fa-solid fa-check"></i><br>You've successfully invested a total amount of ₦<b id="investedAmt"></b>. Kindly contact the Admin/Payment department for confirmation.</span>
+                        <button type="button" class="alert-btn btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                </div>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                         Hello, <%=us.getFirstname() + " " + us.getLastname()%>
                     </button>
@@ -406,7 +419,7 @@
                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-envelope mx-2 sicon"></i><span class="txt"> Messages</span></a></li>
                         <li><a class="dropdown-item" href="logout"><i class="fa-solid fa-right-from-bracket mx-2 sicon"></i><span class="txt">Sign out</span></a></li>
                     </ul>
-                </div>
+                    
             </div>
         </nav>
 
