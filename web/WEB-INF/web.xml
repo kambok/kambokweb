@@ -192,6 +192,14 @@
         <servlet-name>edit</servlet-name>
         <servlet-class>Admin.edit</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReturnMessage</servlet-name>
+        <servlet-class>Investor.ReturnMessage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarkAsRead</servlet-name>
+        <servlet-class>Investor.MarkAsRead</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Adduser</servlet-name>
         <url-pattern>/Adduser</url-pattern>
@@ -395,6 +403,14 @@
     <servlet-mapping>
         <servlet-name>edit</servlet-name>
         <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReturnMessage</servlet-name>
+        <url-pattern>/ReturnMessage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarkAsRead</servlet-name>
+        <url-pattern>/MarkAsRead</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -20,6 +20,10 @@
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
 
+        <!----bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="fontawesome-free-6.1.1-web/css/all.css" />
@@ -351,36 +355,30 @@
                     height: 45px;
                 }
             }
+
+            #messageBody:hover{
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
         <script>
-            window.onload = function(){
-                sendInfo();}
+            window.onload = function () {sendInfo(); sendInfo2();}
             var request;
-
-            function sendInfo(){
-                var email = document.myform.email.value;
+                function sendInfo() {
+                    var email = document.myform.email.value;
                     var url = "InvestorInterestReturn?email=" + email;
-
                     if (window.XMLHttpRequest) {
-                        request = new XMLHttpRequest();
+                            request = new XMLHttpRequest();
+                    }else if (window.ActiveXObject) {
+                            request = new ActiveXObject("Microsoft.XMLHTTP");
                     }
-                    else if (window.ActiveXObject) {
-                        request = new ActiveXObject("Microsoft.XMLHTTP");
-                    }
-
-                    try
-                    {
+                    try{
                         request.onreadystatechange = getInfo;
                         request.open("GET", url, true);
                         request.send();
-                    }
-                    catch (e)
-                    {
-                        alert("Unable to connect to server");
-                    }
-            }
+                    }catch (e){alert("Unable to connect to server");}
+                }
 
 
             function getInfo() {
@@ -390,33 +388,89 @@
 //                    location.reload();
                 }
             }
+
+            function sendInfo2() {
+                var email = document.myform.email.value;
+                var url = "ReturnMessage?email=" + email;
+                if (window.XMLHttpRequest) {
+                    request = new XMLHttpRequest();
+                }else if (window.ActiveXObject) {
+                    request = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                try{
+                    request.onreadystatechange = getInfo2;
+                    request.open("GET", url, true);
+                    request.send();
+                }catch (e){alert("Unable to connect to server");}
+            }
+
+
+            function getInfo2() {
+                if (request.readyState == 4) {
+                    var val = request.responseText;
+                    if (val !== "") {
+                        document.getElementById('message').innerHTML = val;
+                        document.getElementById('msg-container').classList.remove('d-none');
+                        document.getElementById('msg-container').classList.add('d-flex');
+                    }
+                }
+            }
+            
+//            function markAsRead(){        
+//                        alert(messageId);
+////                var url = "MarkAsRead?mar=" + mar.value;
+////                if (window.XMLHttpRequest) {
+////                    request = new XMLHttpRequest();
+////                }else if (window.ActiveXObject) {
+////                    request = new ActiveXObject("Microsoft.XMLHTTP");
+////                }
+////                try{
+////                    request.onreadystatechange = getInfo3;
+////                    request.open("GET", url, true);
+////                    request.send();
+////                }catch (e){alert("Unable to connect to server");}
+//            }
+//            
+//            function getInfo3() {
+//                if (request.readyState == 4) {
+//                    var val = request.responseText;
+//                    alert(val);
+////                    document.getElementById('report').innerHTML = val;
+////                    location.reload();
+//                }
+//            }
         </script>
         <script>
             history.pushState(null, 'investordashboard.jsp', location.href);
-            window.addEventListener('popstate', function (event) {
-                history.pushState(null, 'investordashboard.jsp', location.href)
-            });
-        </script>
-        <%!String name="", position="",email="", pic="", date = "", loanamount="", total= "", interest="", firstname="", lastname="";
-double totalInvestment = 0;%>
+                    window.addEventListener('popstate', function (event) {
+                    history.pushState(null, 'investordashboard.jsp', location.href)
+                    });        </script>
+        <%!String name = "", position = "", email = "", pic = "", date = "", loanamount
+                    = "", total = "", interest = "", firstname = "", lastname
+                    = "";
+            double totalInvestment = 0;%>
 
         <%
-           AdminUser us = (AdminUser)session.getAttribute("staff");
-           Wallet wallet = data.Database.getWallet(us.getEmail());
-           InvestorDetails investorDetails = data.Database.getInvestorDetails(us.getEmail());
-           InvestorDetails investorDetails2 = data.Database.getInvestor(us.getEmail());
-          name=us.getFirstname() + " " + us.getLastname();
-          position=us.getPosition();
-          email=us.getEmail();
-          session.setAttribute("agentname", name);
-          session.setAttribute("agentemail", email);
-    
-        if((position.equals("Investor") || position.equals("Admin")) &&  email!=null){
-        
-        }else{
-        response.sendRedirect("index.jsp");
-        }
-        InvestorDetails currentRecord = data.Database.getInvestorCurrentRecord(us.getEmail());
+            AdminUser us = (AdminUser) session.getAttribute("staff");
+            Wallet wallet = data.Database.getWallet(us.getEmail());
+            InvestorDetails investorDetails = data.Database.getInvestorDetails(
+                    us.getEmail());
+            InvestorDetails investorDetails2 = data.Database.getInvestor(us.
+                    getEmail());
+            name = us.getFirstname() + " " + us.getLastname();
+            position = us.getPosition();
+            email = us.getEmail();
+            session.setAttribute("agentname", name);
+            session.setAttribute("agentemail", email);
+
+            if ((position.equals("Investor") || position.equals("Admin"))
+                    && email != null) {
+
+            } else {
+                response.sendRedirect("index.jsp");
+            }
+            InvestorDetails currentRecord = data.Database.
+                    getInvestorCurrentRecord(us.getEmail());
         %>
 
 
@@ -429,31 +483,34 @@ double totalInvestment = 0;%>
         <nav class="navbar navbar-light bg-light p-3">
             <div class="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
                 <a class="navbar-brand" href="investordashboard.jsp">
-                    <img src="photos/users/<%=pic%>" width="40px" class="rounded-pill">&nbsp; <%=us.getPosition() %>
+                    <img src="photos/users/<%=pic%>" width="40px" class="rounded-pill">&nbsp; <%=us.getPosition()%>
 
                 </a>
                 <button class="navbar-toggler d-md-none collapsed mb-3" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-                    <form name="myform">
-                        <input type="hidden" id="email" name="email" value="<%=us.getEmail() %>">
-                    </form>
+            <form name="myform">
+                <input type="hidden" id="email" name="email" value="<%=us.getEmail()%>">
+            </form>
             <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
                 <div class="mr-3 mt-1">
 
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                        Hello, <%=us.getFirstname()+" "+us.getLastname()%>
+                    <button class="btn btn-secondary dropdown-toggle position-relative" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                        <span id="msg-container" class="spinner-grow position-absolute top-0 end-90 translate-middle badge rounded-pill bg-danger d-none justify-content-center align-items-center"><b id="message" class="text-center" style="font-weight:bold; font-size: large;"></b></span>
+                        Hello, <%=us.getFirstname() + " " + us.getLastname()%>
                     </button>
+
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="investor-bio.jsp"><i class="fa-solid fa-gear mx-2 sicon"></i> <span class="txt"> Settings</span></a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-envelope mx-2 sicon"></i><span class="txt"> Messages</span></a></li>
+                        <li><a class="dropdown-item btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fa-solid fa-envelope mx-2 sicon"></i><span class="txt"> Messages</span>&nbsp;<i class="fa-solid fa-circle-exclamation text-danger"></i></a></li>
                         <li><a class="dropdown-item" href="logout"><i class="fa-solid fa-right-from-bracket mx-2 sicon"></i><span class="txt">Sign out</span></a></li>
                     </ul>
                 </div>
             </div>
+
         </nav>
 
         <div class="container-fluid">
@@ -491,6 +548,117 @@ double totalInvestment = 0;%>
                     </ol>
                 </nav>  
                 <br>
+
+                <!--offcanvas-->
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasRightLabel" class="fw-bolder">Messages</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <%!String investId = "", investStatus = "", interestDate
+                                    = "", msgStatus
+                                    = "", walletId = "", msgID = "", msginvestId
+                                    = "", idHolder = "";
+                            double walletBal = 0, amount = 0, interest2 = 0, credit
+                                    = 0;
+                            int msgSize = 0;%>
+                        <%
+                            List<Message> message = data.Database.
+                                    getMessage(us.getEmail());
+                            msgSize = message.size();
+                            for (Message msg : message) {
+                                msgStatus = msg.getStatus();
+                                msgID = msg.getMessageId();
+                                msginvestId = msg.getInvestmentId();
+
+                                if (msgStatus.equals("Unread")) {
+                                    List<InvestorDetails> invest
+                                            = data.Database.
+                                            getInvestorCurrentRecord2(
+                                                    msginvestId);
+                                    for (InvestorDetails id : invest) {
+                                        investId = id.getInvestmentID();
+                                        investStatus = id.getStatus();
+                                        interestDate = id.getReturnDate();
+                                        walletId = id.getWalletId();
+                                        amount = id.getInvestmentHistory();
+                                        interest2 = id.getInterest();
+                                        credit = id.getTotalAmount();
+                                        out.println("<div class='accordion mb-3' id='accordionExample'>");
+                                            out.println("<div class='accordion-item'>");
+                                                    out.println("<h2 class='accordion-header' id='headingOne'>");
+                                                        out.println("<div class=''>");
+//                                                            out.println("<form name='markAsReadForm' action='MarkAsRead' method='post' id='formSubmit'>");
+//                                                                out.println("<div class='form-check m-1'>");
+//                                                                    //out.println("<input class='form-check-input' type='checkbox' name='mar' id='mar' value='"+msgID+"' style='width:22px; height:25px; margin-top:0; margin-right:0;' onchange='markAsRead();this.form.submit()'>");
+//                                                                    out.println("<input class='form-check-input' type='checkbox' name='mar' id='mar' value='"+msgID+"' style='width:22px; height:25px; margin-top:0; margin-right:0;' onclick='markAsRead();'>");
+//                                                                    out.println("<p style='font-size:15px; margin-left-0;'> Mark as read");
+//                                                                    out.println("</p>");
+//                                                                out.println("</div>");    
+//                                                            out.println("</form>");
+                                                        out.println("<form name='msgForm' method='post' class='messageForm' action='MarkAsRead' id='f"+msgID+"'><input type='hidden' id='e"+msgID+"' class='i' value='"+msgID+"' name='mar'><button class='btn btn-primary msgBtn' id='b"+msgID+"'>Mark As Read</button></form>");
+                                                        HttpSession session1 = request.getSession();
+                                                        session1.setAttribute("messageId", msgID);
+                                                        out.println(session1.getAttribute("messageId"));
+                                                        
+                                                        out.println("<script>");
+                                                            out.println("const messageId = "+session1.getAttribute("messageId")+";");
+                                                       
+                                                        out.println("</script>");
+                                                        
+                                                        out.println("</div>");
+                                                        out.println("<div class='d-flex flex-row'>");
+                                                            out.println("<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#A"+msgID+"' aria-expanded='true' aria-controls='"+msgID+"'>Investment Return ("+msgID+")");
+                                                            out.println("</button>");
+                                                        out.println("</div>");
+                                                    out.println("</h2>");
+                                                out.println("<div id='A"+msgID+"' class='accordion-collapse collapse' aria-labelledby='headingOne' data-bs-parent='#accordionExample'>");
+                                                    out.println("<div class='accordion-body'>");
+                                                        out.println(
+                                                        "<p class='text-justify d-inline-block pr-3' >Your investment with Investment-ID <b>"
+                                                        + investId
+                                                        + "</b> has expired. "
+                                                        + "You invested a total sum of ₦<b>"
+                                                        + amount
+                                                        + "</b> to yield an interest of ₦<b>"
+                                                        + interest2 + "</b>. "
+                                                        + "In regards to that, a total sum of ₦<b>"
+                                                        + credit
+                                                        + "</b> has been credited to your wallet with wallet-ID"
+                                                        + "<b>" + walletId
+                                                        + "</b>. </br> Kindly look up for other loan advertisment to invest on.</p>");
+                                                    out.println("</div>");
+                                                out.println("</div>");
+                                            out.println("</div>");
+                                        out.println("</div>");
+                                        
+                                        
+                                    }
+                                }
+                            }
+                        %>
+                        <script>
+                            document.querySelectorAll(".messageForm").forEach(function(item){
+                                item.querySelectorAll(".messageForm").addEventListener("submit-", function(event){
+                                    event.preventDefault()
+                                  });
+                            });
+                        </script>
+                    </div>  
+                </div>
+                <script>
+                            var offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'))
+                            var offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
+                            return new bootstrap.Offcanvas(offcanvasEl);
+                            }); 
+                            
+                    function showMsgID(){
+                       const msgBtn = document.getElementById("b<%=msgID%>")
+                       alert(msgBtn);
+                    }
+                </script>
+
                 <div class="row my-4">
                     <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
                         <div class="card shadow">
@@ -556,10 +724,8 @@ double totalInvestment = 0;%>
                                         </button>
                                     </div>
                                     <div class="col-md-12 d-flex">
-                                        <h5 class="text-left walletId">Wallet ID: <input type="text" value="<%=investorDetails2.getWalletId() %>" style="background: transparent; border: none; outline: none; font-weight: bold" id="walletId" name="walletId" readonly="true"></h5>
-                                        <b id="report" class="text-danger"></b>
+                                        <h5 class="text-left walletId">Wallet ID: <input type="text" value="<%=investorDetails2.getWalletId()%>" style="background: transparent; border: none; outline: none; font-weight: bold" id="walletId" name="walletId" readonly="true"></h5>
                                     </div>
-
                                 </div>
                                 <div class="row p-2 mx-2">
                                     <div class="col">
@@ -570,23 +736,23 @@ double totalInvestment = 0;%>
                                             <span class="hide-figure d-flex justify-content-start p-2"><i class="fas fa-eye" style="cursor: pointer" id="hide-figure" onclick="toggle()"></i></span>
                                         </h3>
                                         <script>
-                                            var state = false;
-                                            const eye = document.querySelector("#hide-figure");
-                                            function toggle() {
-                                                if (state) {
+                                                    var state = false;
+                                                    const eye = document.querySelector("#hide-figure");
+                                                    function toggle() {
+                                                    if (state) {
                                                     document.getElementById("amt").setAttribute("type", "text");
-                                                    document.getElementById("ledger").setAttribute("type", "text");
-                                                    eye.classList.add('fa-eye-slash');
-                                                    eye.classList.remove('fa-eye');
-                                                    state = false;
-                                                } else {
+                                                            document.getElementById("ledger").setAttribute("type", "text");
+                                                            eye.classList.add('fa-eye-slash');
+                                                            eye.classList.remove('fa-eye');
+                                                            state = false;
+                                                    } else {
                                                     document.getElementById("amt").setAttribute("type", "password");
-                                                    document.getElementById("ledger").setAttribute("type", "password");
-                                                    eye.classList.remove('fa-eye-slash');
-                                                    eye.classList.add('fa-eye');
-                                                    state = true;
-                                                }
-                                            }
+                                                            document.getElementById("ledger").setAttribute("type", "password");
+                                                            eye.classList.remove('fa-eye-slash');
+                                                            eye.classList.add('fa-eye');
+                                                            state = true;
+                                                    }
+                                                    }
                                         </script>
                                     </div>
                                 </div>
@@ -609,7 +775,7 @@ double totalInvestment = 0;%>
                                     <div class="col-md-12 p-3">
                                         <div class="card investment-card p-5">
                                             <h2 class="investment-title my-3">Current Investments</h2>
-                                            <p class="description">Investment ID: <span class="text-info"><%=currentRecord.getInvestmentID() %></span></p>
+                                            <p class="description">Investment ID: <span class="text-info"><%=currentRecord.getInvestmentID()%></span></p>
                                             <div class="col investment-content">
                                                 <div class="owl-carousel owl-theme my-4 ">
                                                     <div class="item p-2">
@@ -619,7 +785,7 @@ double totalInvestment = 0;%>
                                                                     <div class="col-md-12 text-left p-3 ">
                                                                         <div class="col"><p class="sub-title">Invested Amount</p></div>
                                                                         <div class="col d-flex justify-content-between">
-                                                                            <h2 id="amount" class="card-content">₦<%=currentRecord.getInvestmentHistory() %></h2>
+                                                                            <h2 id="amount" class="card-content">₦<%=currentRecord.getInvestmentHistory()%></h2>
                                                                             <h2 id="bg-icon" class="rounded-circle bg-icon-1 d-flex justify-content-center align-items-center"><i class="fa-solid fa-paper-plane text-light"></i></h2>
                                                                         </div>
                                                                         <div class="col"> <p class="sub-title">At the rate of 10% per month</p></div>
@@ -637,7 +803,7 @@ double totalInvestment = 0;%>
                                                                     <div class="col-md-12 text-left p-3 ">
                                                                         <div class="col"><p class="sub-title">Interest</p></div>
                                                                         <div class="col d-flex justify-content-between">
-                                                                            <h2 id="interest" class="card-content">₦<%=currentRecord.getInterest() %></h2>
+                                                                            <h2 id="interest" class="card-content">₦<%=currentRecord.getInterest()%></h2>
                                                                             <h2 id="bg-icon" class="rounded-circle bg-icon-2 d-flex justify-content-center align-items-center"><i class="fa-solid fa-medal text-light"></i></h2>
                                                                         </div>
                                                                         <div class="col"> <p class="sub-title">Accumulated interest after 30days</p></div>
@@ -655,7 +821,7 @@ double totalInvestment = 0;%>
                                                                     <div class="col-md-12 text-left p-3 ">
                                                                         <div class="col"><p class="sub-title">Total</p></div>
                                                                         <div class="col d-flex justify-content-between">
-                                                                            <h2 id="total" class="card-content">₦<%=currentRecord.getTotalAmount() %></h2>
+                                                                            <h2 id="total" class="card-content">₦<%=currentRecord.getTotalAmount()%></h2>
                                                                             <h2 id="bg-icon" class="rounded-circle bg-icon-3 d-flex justify-content-center align-items-center"><i class="fa-solid fa-money-bill-trend-up text-light"></i></h2>
                                                                         </div>
                                                                         <div class="col"> <p class="sub-title">Invested amount + Interest after 30 days</p></div>
@@ -673,7 +839,7 @@ double totalInvestment = 0;%>
                                                                     <div class="col-md-12 text-left p-3 ">
                                                                         <div class="col"><p class="sub-title">Investment Duration</p></div>
                                                                         <div class="col d-flex justify-content-between">
-                                                                            <h2 class="card-content"><%=currentRecord.getDate() %> - <%=currentRecord.getReturnDate() %></h2>
+                                                                            <h2 class="card-content"><%=currentRecord.getDate()%> - <%=currentRecord.getReturnDate()%></h2>
                                                                             <h2 id="bg-icon" class="rounded-circle bg-icon-4 d-flex justify-content-center align-items-center"><i class="fa-solid fa-calendar-check text-light"></i></h2>
                                                                         </div>
                                                                         <div class="col"> <p class="sub-title">All investment will be liquidated after 30 days</p></div>
@@ -706,40 +872,35 @@ double totalInvestment = 0;%>
                                             </div>
                                             <script type="text/javascript">
                                                 var a = 20000;
-                                                var b = 18000;
-                                                var c = 2000;
-                                                var f = 200000;
-                                                var xValues = ["Investment", "Interest", "Profit", "Bonus"];
-                                                var yValues = [f, a, b, c];
-                                                var barColors = ["teal", "green", "orange", "gold"];
-
-                                                new Chart("myChart", {
-                                                    type: "bar",
-                                                    data: {
-                                                        labels: xValues,
-                                                        datasets: [{
-                                                                label: ["Investment", "Interest", "Profit", "Bonus"],
-                                                                backgroundColor: barColors,
-                                                                data: yValues
-                                                            }]
-                                                    },
-                                                    options: {
-                                                        legend: {position: 'top', maxLines: 3},
-                                                        title: {
-                                                            display: true,
-                                                            text: "Transaction Analysis"
-                                                        }
-                                                    }
-                                                });
-                                                
-                                                document.getElementById("total").innerHTML = document.getElementById("total").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
-                                                document.getElementById("amount").innerHTML = document.getElementById("amount").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
-                                                document.getElementById("interest").innerHTML = document.getElementById("interest").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
-                                                document.getElementById("amt").value = document.getElementById("amt").value.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
-                                                document.getElementById("ledger").value = document.getElementById("ledger").value.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
-//                                              
-                                                
-
+                                                        var b = 18000;
+                                                        var c = 2000;
+                                                        var f = 200000;
+                                                        var xValues = ["Investment", "Interest", "Profit", "Bonus"];
+                                                        var yValues = [f, a, b, c];
+                                                        var barColors = ["teal", "green", "orange", "gold"];
+                                                        new Chart("myChart", {
+                                                        type: "bar",
+                                                                data: {
+                                                                labels: xValues,
+                                                                        datasets: [{
+                                                                        label: ["Investment", "Interest", "Profit", "Bonus"],
+                                                                                backgroundColor: barColors,
+                                                                                data: yValues
+                                                                        }]
+                                                                },
+                                                                options: {
+                                                                legend: {position: 'top', maxLines: 3},
+                                                                        title: {
+                                                                        display: true,
+                                                                                text: "Transaction Analysis"
+                                                                        }
+                                                                }
+                                                        });
+                                                        document.getElementById("total").innerHTML = document.getElementById("total").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                                        document.getElementById("amount").innerHTML = document.getElementById("amount").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                                        document.getElementById("interest").innerHTML = document.getElementById("interest").innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                                        document.getElementById("amt").value = document.getElementById("amt").value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                                        document.getElementById("ledger").value = document.getElementById("ledger").value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                             </script>
 
                                         </div>
@@ -783,23 +944,23 @@ double totalInvestment = 0;%>
         <!--initialize owl carousel-->
 
         <script>
-                                                $('.owl-carousel').owlCarousel({
-                                                    autoplay: true,
-                                                    loop: true,
-                                                    slideSpeed: 1000,
-                                                    margin: 10,
-                                                    nav: true,
-                                                    responsive: {
+                                                        $('.owl-carousel').owlCarousel({
+                                                autoplay: true,
+                                                        loop: true,
+                                                        slideSpeed: 1000,
+                                                        margin: 10,
+                                                        nav: true,
+                                                        responsive: {
                                                         0: {
-                                                            items: 1
+                                                        items: 1
                                                         },
-                                                        600: {
-                                                            items: 1
-                                                        },
-                                                        1000: {
-                                                            items: 2
+                                                                600: {
+                                                                items: 1
+                                                                },
+                                                                1000: {
+                                                                items: 2
+                                                                }
                                                         }
-                                                    }
                                                 })
                                                 
 //           function timedRefresh(timeoutPeriod){

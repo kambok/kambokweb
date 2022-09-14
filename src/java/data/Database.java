@@ -20,7 +20,7 @@ public class Database {
     static String name = "com.mysql.jdbc.Driver";
     static String url = "jdbc:mysql://localhost:3306/onedrive";
     static String username = "root";
-    static String password = "Ab@230596";
+    static String password = "israel4God";
     static float total = 0;
     static float deposit = 0;
     static float balance = 0;
@@ -2525,7 +2525,7 @@ public class Database {
         return id;
     }
     
-     public static List<InvestorDetails> getInvestmentId(String email){
+    public static List<InvestorDetails> getInvestmentId(String email){
         List<InvestorDetails> investRecord = new ArrayList<>();
         try{
             Connection con = myconnection();
@@ -2535,6 +2535,34 @@ public class Database {
             while (rs1.next()) {
                 InvestorDetails id = new InvestorDetails();
                 id.setInvestmentID(rs1.getString(1));
+                investRecord.add(id);
+            }
+        }catch(Exception e){}
+        return investRecord;
+    }
+    
+    public static List<InvestorDetails> getInvestmentId2(String email){
+        List<InvestorDetails> investRecord = new ArrayList<>();
+        try{
+            Connection con = myconnection();
+            String sql1 = "SELECT * FROM onedrive.investordetails where email='"+email+"'";
+            PreparedStatement ps1 = con.prepareStatement(sql1);
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                InvestorDetails id = new InvestorDetails();
+                id.setInvestmentID(rs1.getString(1));
+                id.setEmail(rs1.getString(2));
+                id.setWalletId(rs1.getString(3));
+                id.setWalletBalance(rs1.getDouble(4));
+                id.setCredit(rs1.getDouble(5));
+                id.setDebit(rs1.getDouble(6));
+                id.setInvestmentHistory(rs1.getDouble(7));
+                id.setInterest(rs1.getDouble(8));
+                id.setMonth(rs1.getInt(9));
+                id.setDays(rs1.getInt(10));
+                id.setYear(rs1.getInt(11));
+                id.setDate(rs1.getString(12));
+                id.setStatus(rs1.getString(13));
                 investRecord.add(id);
             }
         }catch(Exception e){}
@@ -2570,16 +2598,15 @@ public class Database {
     }
     
     public static int LoanInvest (InvestorDetails invest, Ads ads, Wallet wallet) {
-            
         int i = 0;
-
         try {
             Connection con = myconnection();
-            String sql = "update onedrive.loanads set investBalance=?, ads_status=? where ads_id=?";
+            String sql = "update onedrive.loanads set investBalance=?, ads_status=?, package=? where ads_id=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDouble(1, ads.getInvestBalance());
             ps.setString(2, ads.getAdsStatus());
-            ps.setString(3, ads.getAdsID());
+            ps.setString(3, ads.getAdsPackage());
+            ps.setString(4, ads.getAdsID());
             i = ps.executeUpdate();
             
             String sql2 = "insert into onedrive.wallethistory (acctno, amount, balance, sender, date, status) values(?,?,?,?,?,?)";
@@ -2607,7 +2634,6 @@ public class Database {
             ps3.setInt(11, invest.getYear());
             ps3.setString(12, invest.getDate());
             ps3.setString(13, invest.getStatus());
-            
             i += ps3.executeUpdate();
             
             String sql4 = "update onedrive.wallet set debit=?, total=? where acctno=?";
@@ -2644,7 +2670,7 @@ public class Database {
             
             i+= ps2.executeUpdate();
             
-            String sql3 = "insert into onedrive.investordetails (investmentID, email, walletID, walletBalance, credit, investmentHistory, interest, date, status) values(?,?,?,?,?,?,?,?,?)";
+            String sql3 = "insert into onedrive.investordetails (investmentID, email, walletID, walletBalance, credit, investmentHistory, interest, month, days, year, date, status) values(?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps3 = con.prepareStatement(sql3);
             ps3.setString(1, invest.getInvestmentID());
             ps3.setString(2, invest.getEmail());
@@ -2653,8 +2679,11 @@ public class Database {
             ps3.setDouble(5, invest.getCredit());
             ps3.setDouble(6, invest.getInvestmentHistory());
             ps3.setDouble(7, invest.getInterest());
-            ps3.setString(8, invest.getReturnDate());
-            ps3.setString(9, invest.getStatus());
+            ps3.setInt(8, invest.getMonth());
+            ps3.setInt(9, invest.getDays());
+            ps3.setInt(10, invest.getYear());
+            ps3.setString(11, invest.getReturnDate());
+            ps3.setString(12, invest.getStatus());
             i+= ps3.executeUpdate();
             
             String sql4 = "update onedrive.investordetails set status = '"+invest.getStatus()+"' where investmentID='"+invest.getInvestmentID()+"'";
@@ -2684,4 +2713,100 @@ public class Database {
         }catch(Exception e){}
         return id;
     }
+    
+    public static List<InvestorDetails> getInvestorCurrentRecord2(String investId){
+        List<InvestorDetails> ir = new ArrayList<>();
+        try{
+            Connection con = myconnection();
+            String sql1 = "SELECT * FROM onedrive.investmenthistory where investmentID='" + investId+ "'";
+            PreparedStatement ps1 = con.prepareStatement(sql1);
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                InvestorDetails id = new InvestorDetails();
+                id.setInvestmentID(rs1.getString(1));
+                id.setEmail(rs1.getString(2));
+                id.setWalletId(rs1.getString(3));
+                id.setInvestmentHistory(rs1.getDouble(4));
+                id.setInterest(rs1.getDouble(5));
+                id.setTotalAmount(rs1.getDouble(6));
+                id.setDate(rs1.getString(7));
+                id.setReturnDate(rs1.getString(8)); 
+                ir.add(id);
+            }
+        }catch(Exception e){}
+        return ir;
+    }
+    
+    public static int message(Message message){
+        int i=0;
+        try{
+            Connection con = myconnection();
+            String sql = "insert into onedrive.message value (?,?,?,?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, message.getEmail());
+            ps.setString(2, message.getInvestmentId());
+            ps.setString(3, message.getMessageId());
+            ps.setString(4, message.getStatus());
+            i = ps.executeUpdate();
+        }catch(Exception e){}
+        return i;
+    }
+     
+    public static List<Message> getMessage(String email){
+        List<Message> msg = new ArrayList<>();
+        try{
+            Connection con = myconnection();
+            String sql1 = "SELECT * FROM onedrive.message where email='" + email+ "'";
+            PreparedStatement ps1 = con.prepareStatement(sql1);
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                Message message = new Message();
+                message.setEmail(rs1.getString(1));
+                message.setInvestmentId(rs1.getString(2));
+                message.setMessageId(rs1.getString(3));
+                message.setStatus(rs1.getString(4));
+                msg.add(message);
+            }
+        }catch(Exception e){}
+        return msg;
+    }
+    
+    public static List<Message> getMessage2(String investmentId){
+        List<Message> msg = new ArrayList<>();
+        try{
+            Connection con = myconnection();
+            String sql1 = "SELECT * FROM onedrive.message where investmentId='" + investmentId+ "'";
+            PreparedStatement ps1 = con.prepareStatement(sql1);
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                Message message = new Message();
+                message.setEmail(rs1.getString(1));
+                message.setInvestmentId(rs1.getString(2));
+                message.setMessageId(rs1.getString(3));
+                message.setStatus(rs1.getString(4));
+                msg.add(message);
+            }
+        }catch(Exception e){}
+        return msg;
+    }
+    
+    public static List<Message> getMessage3(String messageId){
+        List<Message> msg = new ArrayList<>();
+        try{
+            Connection con = myconnection();
+            String sql1 = "SELECT * FROM onedrive.message where messageId='" + messageId+ "'";
+            PreparedStatement ps1 = con.prepareStatement(sql1);
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                Message message = new Message();
+                message.setEmail(rs1.getString(1));
+                message.setInvestmentId(rs1.getString(2));
+                message.setMessageId(rs1.getString(3));
+                message.setStatus(rs1.getString(4));
+                msg.add(message);
+            }
+        }catch(Exception e){}
+        return msg;
+    }
+
 }

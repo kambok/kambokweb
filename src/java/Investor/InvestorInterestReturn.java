@@ -52,7 +52,6 @@ public class InvestorInterestReturn extends HttpServlet {
                             interestYear = investYear;
                             interestDay = modDate;
                             interestDate = interestDay + "/" + interestMonth + "/" + interestYear;
-
                         }else if(newDay > lm && cy > investYear){
                             modDate = interestDay - lm;
                             interestMonth = investMonth + 1;
@@ -71,6 +70,10 @@ public class InvestorInterestReturn extends HttpServlet {
                             interestDate = interestDay + "/" + interestMonth + "/" + interestYear;
                         }
                         
+                        if(interestMonth == 13){
+                            interestMonth = 1;
+                        }
+                        
                         if((interestDay == cd && interestMonth == cm) && interestYear == cy){
                         totalAmount = interest + amount;
                         returnAmount = walletBal + totalAmount;
@@ -86,6 +89,9 @@ public class InvestorInterestReturn extends HttpServlet {
                         investorDetails.setEmail(email);
                         investorDetails.setCredit(credit); 
                         investorDetails.setInvestmentID(investId);
+                        investorDetails.setDays(interestDay);
+                        investorDetails.setMonth(interestMonth);
+                        investorDetails.setYear(interestYear);
                         investorDetails.setStatus("Liquidated");
                         
                         if(data.Database.InvestmentReturn(investorDetails)==4){

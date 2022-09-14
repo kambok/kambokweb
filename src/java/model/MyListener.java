@@ -12,7 +12,7 @@ public class MyListener implements ServletContextListener{
 static String name="com.mysql.jdbc.Driver";
 static String url="jdbc:mysql://localhost:3306/";
 static String username="root";
-static String password="Ab@230596";
+static String password="israel4God";
 
 public static Connection myconnection(){
     Connection con=null;
@@ -70,6 +70,7 @@ System.out.println(e);}
         String sql39 = "create table onedrive.investordetails(investmentID varchar(100), email varchar(100), walletID varchar(100), walletBalance double, credit double, debit double, investmentHistory varchar(200), interest double, month int, days int, year int, date varchar(100), status varchar(100))";
         String sql40 = "create table onedrive.investor(email varchar(100), walletID varchar(100), transpin varchar(100))";
         String sql41 = "create table onedrive.investmenthistory(investmentID varchar(100), email varchar(100), walletID varchar(100), amount double, interest double, total double, investmentDate varchar(100), returnDate varchar(100))";
+        String sql42 = "create table onedrive.message(email varchar(100), investmentId varchar(100), messageId varchar(100), status varchar(100), PRIMARY KEY(investmentId))";
         
         PreparedStatement ps1 = con.prepareStatement(database);
         ps1.executeUpdate();
@@ -155,6 +156,8 @@ System.out.println(e);}
         ps40.executeUpdate();
         PreparedStatement ps41=con.prepareStatement(sql41);
         ps41.executeUpdate();
+        PreparedStatement ps42=con.prepareStatement(sql42);
+        ps42.executeUpdate();
     }catch(Exception e){e.printStackTrace();}  
     }  
       
