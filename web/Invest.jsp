@@ -518,7 +518,7 @@
             <div class="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
                 <a class="navbar-brand" href="investordashboard.jsp">
                     <img src="photos/users/<%=pic%>" width="40px" class="rounded-pill">&nbsp; <%=us.getPosition()%>
-
+                    
                 </a>
                 <button class="navbar-toggler d-md-none collapsed mb-3" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -639,7 +639,8 @@
                                                                 </div>
                                                                 <div>
                                                                     <p class="text-left text-danger py-3 pb-0"><i class="fas fa-money-bill-transfer rounded-circle d-none d-md-inline-block"></i> Advertised amount </p>
-                                                                    <h2 class="text-left text-light" id="amt"> ₦<%=ads.getInvestBalance()%></h2>
+
+                                                                    <h2 class="text-left text-light" id="amt"> ₦<%= ads.getInvestBalance() %></h2>
                                                                 </div>
                                                             </div>
                                                             <a href="investordashboard.jsp" class="my-2 btn btn-dark text-center mx-auto">Fund wallet</a>
@@ -680,7 +681,7 @@
                         <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content p-3">
-
+                                    <!--Alert-->
                                     <div class="d-flex justify-content-space-around align-items-center alert alert-warning alert-dismissible fade shadow" row="alert" width="100%">
                                         <span><i class="fa-solid fa-exclamation-circle"></i></span>
                                         &nbsp;&nbsp;<span class=" text-center"><h6>You entered an Incorrect PIN. Try again</h6></span>

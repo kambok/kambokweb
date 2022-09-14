@@ -39,7 +39,9 @@
 
         <!--    Chart CDN   -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-
+         <!--Modal-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <style>
 
             .sidebar {
@@ -177,18 +179,21 @@
                 position: absolute;
                 z-index: 1;
                 top: 40px;
-                left: -110px;
+                right: 0;
                 font-weight: 500;
-                width: 230px;
+                width: 380px;
                 font-size: 16px;
                 transition: all .2s ease;
+                background-color: #6ea194;
+                box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+                border-radius: 10px;
             }
 
             .tooltiptext::after{
                 content: "";
                 position: absolute;
-                bottom: 85%;
-                left: 60%;
+                top: -12px;
+                right: 10px;
                 margin-left: -19px;
                 border-width: 7px;
                 border-style: solid;
@@ -322,6 +327,20 @@
                 height: 100%;
                 display: block;
                 overflow: hidden;
+            }
+            
+            @media(max-width: 460px){
+                .tooltiptext{
+                top: 40px;
+                right: -100%;
+                font-weight: 500;
+                width: 280px;
+                font-size: 12px;
+            }
+            .tooltiptext::after{
+                top: -12px;
+                right: 35px;
+            }
             }
 
             @media (max-width: 767.98px) {
@@ -652,7 +671,7 @@
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                         <div class="card shadow">
-                            <h5 class="card-header">Total accumulating interest</h5>
+                            <h5 class="card-header">Accumulated interest</h5>
                             <div class="card-body">
                                 <h5 class="card-title">₦55,000.00</h5>
                                 <p class="card-text text-primary display-5">Accrued Interest</p>
@@ -688,8 +707,20 @@
                                 <div class="row p-4 ">
                                     <div class="col-md-12 d-flex justify-content-between">
                                         <h3 class="title text-left"> <span><i class="fas fa-wallet rounded-circle"></i></span> Wallet</h3>
-                                        <button type="button" class="btn rounded-circle info-btn"><i class="fa-solid fa-circle-question text-dark"></i>
-                                            <span class="tooltiptext text-info">Terms & Conditions</span>
+                                        <button type="button" class="btn rounded-circle info-btn d-flex"><i class="fa-solid fa-circle-question text-dark"></i>
+                                            <div class="tooltiptext p-2 text-left">
+                                                <h6 class="text-dark pb-2">Terms & Conditions</h6>
+                                                <ul>
+                                                    <li><b>Sharing of authorization pin:</b></li>
+                                                    <small>You must not share or grant a third party access to your account.</small>
+                                                    <li><b>Lose due to negligence:</b></li>
+                                                    <small>You're solely responsible to any lose/loses incurred due to your negligence.</small>
+                                                    <li><b>Wallet ID:</b></li>
+                                                    <small>Your wallet ID shall serve as your unique identity number which will be required when funding/crediting your account</small>
+                                                    <li><b>Wallet Balance:</b></li>
+                                                    <small>Wallet balance means your total asset/money you have in your account</small>
+                                                </ul>
+                                            </div>
                                         </button>
                                     </div>
                                     <div class="col-md-12 d-flex">
@@ -811,7 +842,7 @@
                                                                             <h2 class="card-content"><%=currentRecord.getDate()%> - <%=currentRecord.getReturnDate()%></h2>
                                                                             <h2 id="bg-icon" class="rounded-circle bg-icon-4 d-flex justify-content-center align-items-center"><i class="fa-solid fa-calendar-check text-light"></i></h2>
                                                                         </div>
-                                                                        <div class="col"> <p class="sub-title">Any investment done after 10:00pm of that day will automatically roll over</p></div>
+                                                                        <div class="col"> <p class="sub-title">All investment will be liquidated after 30 days</p></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -931,6 +962,11 @@
                                                                 }
                                                         }
                                                 })
+                                                
+//           function timedRefresh(timeoutPeriod){
+//               setTimeout("location.reload(true);", timeoutPeriod);
+//           }
+//           window.onload = timedRefresh(1000);
         </script>
     </body>
 </html>

@@ -348,6 +348,12 @@
                     height: 45px;
                 }
             }
+            
+            .fa-check{
+                font-weight: bold;
+                font-size: 37px;
+            }
+         
         </style>
     </head>
     <body>
@@ -392,12 +398,19 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-
+                    
             <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
                 <div class="mr-3 mt-1">
 
                 </div>
                 <div class="dropdown">
+                    <!--Alert-->
+                    <div class="d-flex justify-content-space-around d-none show align-items-center alert alert-success alert-dismissible fade shadow" row="alert" width="70%">
+                       
+                        &nbsp;&nbsp;<span class=" text-center"><i class="fa-solid fa-check"></i><br>You've successfully invested a total amount of ₦<b id="investedAmt"></b>. Kindly contact the Admin/Payment department for confirmation.</span>
+                        <button type="button" class="alert-btn btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                </div>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                         Hello, <%=us.getFirstname() + " " + us.getLastname()%>
                     </button>
@@ -406,7 +419,7 @@
                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-envelope mx-2 sicon"></i><span class="txt"> Messages</span></a></li>
                         <li><a class="dropdown-item" href="logout"><i class="fa-solid fa-right-from-bracket mx-2 sicon"></i><span class="txt">Sign out</span></a></li>
                     </ul>
-                </div>
+                    
             </div>
         </nav>
 
@@ -450,16 +463,16 @@
                         <div class="card shadow">
                             <h5 class="card-header">Total Investment</h5>
                             <div class="card-body">
-                                <h2 class="text-dark display-5">₦550,000.00</h2>
+                                <h2 class="text-dark">₦550,000.00</h2>
                                 <h5 class="text-success">At 10% rate monthly</h5>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                         <div class="card shadow">
-                            <h5 class="card-header">Total accumulating interest</h5>
+                            <h5 class="card-header">Accumulated interest</h5>
                             <div class="card-body">
-                                <h2 class="display-5 text-dark">₦55,000.00</h2>
+                                <h2 class="text-dark">₦55,000.00</h2>
                                 <h5 class="text-primary">Accrued Interest</h5>
                             </div>
                         </div>
@@ -468,7 +481,7 @@
                         <div class="card shadow">
                             <h5 class="card-header">Bonus</h5>
                             <div class="card-body">
-                                <h2 class="display-5 text-dark">₦5,000.00</h2>
+                                <h2 class="text-dark">₦5,000.00</h2>
                                 <h5 class="text-info">Based on investment pack</h5>
                             </div>
                         </div>
@@ -477,7 +490,7 @@
                         <div class="card shadow">
                             <h5 class="card-header">Investment Pack</h5>
                             <div class="card-body">
-                                <h2 class="text-primary display-5"><i class="fa-solid fa-medal" style="font-size: 30px;"></i> Bronze</h2>
+                                <h2 class="text-primary"><i class="fa-solid fa-medal" style="font-size: 30px;"></i> Bronze</h2>
                                 <h5 class="text-secondary ">Investment above ₦1M </h5>
                             </div>
                         </div>
@@ -490,6 +503,7 @@
                         <section class="adverts">
                             <div class="container-fluid my-5">
                                 <h2 class="header text-left display-5 mb-3">Available Loan Adverts</h2>
+                                <marquee behavior="sliding" direction="left" class='text-danger'><b>Note:</b> All available investment ads are on the basis of first-come-first-serve. No favourism, only quick finger. If you miss an investment opportunity today, come early tomorrow. &#128525;</marquee>
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-md-11 p-4">
                                         <div class="owl-carousel owl-theme ">
@@ -533,7 +547,7 @@
                                                         out.println("</div>");
 
                                                         out.println("<input type='hidden' name='adsId' value='"+ads.getAdsID()+"'>");
-                                                        out.println("<h5 class='card-title'>₦"+ ads.getInvestBalance()+ "</h5>");
+                                                        out.println("<h5 class='card-title ads-amount'>₦"+ ads.getInvestBalance()+ "</h5>");
                                                         out.println("<p class='card-text'>Get a 10% interest upon any amount invested at the end of 30days</p>");
                                                         out.println("<form action='GetInvestInfo' method='post'><input type='hidden' name='adsId' value='"+ads.getAdsID()+"'><button type='submit' class='btn btn-info invest-btn'>Invest Now</button></form>");
 //                                                        out.println("<a href='Invest.jsp' class='btn btn-info invest-btn'>Invest Now</a>");
@@ -747,6 +761,12 @@
                                                     }
                                                 }
                                             });
+                                            
+                                            var adAmount = document.getElementsByClassName("ads-amount");
+                                            for(var i=0; i<adAmount.length; i++){
+                                                adAmount[i].innerHTML = adAmount[i].innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+                                            }
+                                                                                
                                         </script>
 
                                     </div>
@@ -792,7 +812,7 @@
             $('.owl-carousel').owlCarousel({
                 autoplay: true,
                 loop: true,
-                slideSpeed: 4000,
+                slideSpeed: 1000,
                 margin: 10,
                 nav: true,
                 responsive: {
