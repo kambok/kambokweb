@@ -1,7 +1,7 @@
 package model;
 
 public class InvestorDetails {
-    String email, walletId, date, investmentID, returnDate, status;
+    String email, walletId, date, investmentID, returnDate, status,transpin;
     int month, days, year;
     double walletBalance, credit, debit, interest, investmentHistory, totalAmount;
 
@@ -123,8 +123,15 @@ public class InvestorDetails {
 
     public void setStatus(String status) {
         this.status = status;
+    }  
+
+    public String getTranspin() {
+        return transpin;
     }
-    
+
+    public void setTranspin(String transpin) {
+        this.transpin = transpin;
+    }
     
     
 }

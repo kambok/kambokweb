@@ -62,10 +62,16 @@ System.out.println(e);}
         String sql31 = "create table onedrive.wallethistory(acctno varchar(100),amount double,balance double,sender varchar(100),date varchar(100),pin varchar(100),status varchar(100))";
         String sql32 = "insert into onedrive.wallet values ('Loan@kambok.com','3000000002',0.0,0.0,0.0)";
         String sql33 = "insert into onedrive.wallet values ('Training@kambok.com','3000000001',0.0,0.0,0.0)";
-        String sql34 = "create table onedrive.makepayment(pmtid varchar(100),verifiedid varchar(100),trid varchar(100),firstname varchar(100),lastname varchar(100),email varchar(100), phone varchar(100), date varchar(100), time varchar(100), VerifiedStatus varchar(100),Noexpired int,Noextension int,Noliquidate int,camount float,cinterest float,ctotal float,pamount float,pinterest float,ptotal float,bankname varchar(100),acctno varchar(100),acctname varchar(100),agentname varchar(100),paymentmethod varchar(100));";
-        String sql35="create table onedrive.admininvestment(walletno varchar(100),email varchar(100),refid varchar(100),month int,days int,year int,date varchar(100),status varchar(100),monthlyinvest double,yearlreturn double,capitalinvest double,monthlyreturn double,monthlyinterest double,yearlyinterest double)";
+        String sql34 = "create table onedrive.makepayment(pmtid varchar(100),verifiedid varchar(100),trid varchar(100),firstname varchar(100),lastname varchar(100),email varchar(100), phone varchar(100), date varchar(100), time varchar(100), VerifiedStatus varchar(100),Noexpired int,Noextension int,Noliquidate int,camount float,cinterest float,ctotal float,pamount float,pinterest float,ptotal float,bankname varchar(100),acctno varchar(100),acctname varchar(100),agentname varchar(100),paymentmethod varchar(100))";
+        String sql35="create table onedrive.admininvestment(walletno varchar(100),email varchar(100),refid varchar(100),month int,days int,year int,date varchar(100),status varchar(100),monthlyinvest double,yearlreturn double,capitalinvest double,monthlyreturn double)";
         String sql36="create table onedrive.admininvesthistory(walletno varchar(100),date varchar(100),type varchar(100),status varchar(100),amount double,balance double)";
-        String sql37="insert into onedrive.admininvestment values('3000000002','Loan@kambok.com','9218902',0,0,0,'date','valid',0.0,0.0,0.0,0.0,0.0,0.0)";
+        String sql37="insert into onedrive.admininvestment values('3000000002','Loan@kambok.com','9218902',0,0,0,'date','valid',0.0,0.0,0.0,0.0)";
+        String sql38 = "create table onedrive.loanads(ads_amount double, investBalance double, date varchar(100), ads_id varchar(100), package varchar(100), ads_status varchar(100))";
+        String sql39 = "create table onedrive.investordetails(investmentID varchar(100), email varchar(100), walletID varchar(100), walletBalance double, credit double, debit double, investmentHistory varchar(200), interest double, month int, days int, year int, date varchar(100), status varchar(100))";
+        String sql40 = "create table onedrive.investor(email varchar(100), walletID varchar(100), transpin varchar(100))";
+        String sql41 = "create table onedrive.investmenthistory(investmentID varchar(100), email varchar(100), walletID varchar(100), amount double, interest double, total double, investmentDate varchar(100), returnDate varchar(100))";
+        String sql42 = "create table onedrive.message(email varchar(100), investmentId varchar(100), messageId varchar(100), status varchar(100), PRIMARY KEY(investmentId))";
+   
         PreparedStatement ps1 = con.prepareStatement(database);
         ps1.executeUpdate();
         PreparedStatement ps=con.prepareStatement(sql);
@@ -142,6 +148,16 @@ System.out.println(e);}
         ps36.executeUpdate();
         PreparedStatement ps37=con.prepareStatement(sql37);
         ps37.executeUpdate();
+         PreparedStatement ps38=con.prepareStatement(sql38);
+        ps38.executeUpdate();
+        PreparedStatement ps39=con.prepareStatement(sql39);
+        ps39.executeUpdate();
+        PreparedStatement ps40=con.prepareStatement(sql40);
+        ps40.executeUpdate();
+        PreparedStatement ps41=con.prepareStatement(sql41);
+        ps41.executeUpdate();
+        PreparedStatement ps42=con.prepareStatement(sql42);
+        ps42.executeUpdate();
     }catch(Exception e){e.printStackTrace();}  
     }  
       

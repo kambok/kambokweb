@@ -12,14 +12,14 @@
   
 <!DOCTYPE html>
 <html lang="en">
-<heads
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <META Http-Equiv="Cache-Control" Content="no-cache">
 <META Http-Equiv="Pragma" Content="no-cache">
 <META Http-Equiv="Expires" Content="0">
 
-    <title>Admin Dashboard</title>
+    <title>Adminhome</title>
  
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
   	  
@@ -195,9 +195,9 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="register.html">
+        <a class="nav-link" href="staffmanagement.jsp">
           <i class="fa-solid fa-file-pen mx-2"></i>
-          <span class="ml-2">Add users</span>
+          <span class="">Staff Management</span>
         </a>
       </li>
       <li class="nav-item">
@@ -210,6 +210,12 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
         <a class="nav-link" href="confirmpayment.jsp">
           <i class="fa-solid fa-file-invoice-dollar mx-2"></i>
           <span class="ml-2">Confirm-payment</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Advertisement.jsp">
+          <i class="fa-solid fa-file-invoice-dollar mx-2"></i>
+          <span class="ml-2">Advertise Loan</span>
         </a>
       </li>
     </ul>

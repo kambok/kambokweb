@@ -152,6 +152,54 @@
         <servlet-name>DebitClient</servlet-name>
         <servlet-class>Admin.DebitClient</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetInvestInfo</servlet-name>
+        <servlet-class>Investor.GetInvestInfo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InvestorInterestReturn</servlet-name>
+        <servlet-class>Investor.InvestorInterestReturn</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoanInvest</servlet-name>
+        <servlet-class>Investor.LoanInvest</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveInvestInfo</servlet-name>
+        <servlet-class>Investor.SaveInvestInfo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoanAds</servlet-name>
+        <servlet-class>Admin.LoanAds</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetAuthorizationPin</servlet-name>
+        <servlet-class>Investor.SetAuthorizationPin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>viewStaff</servlet-name>
+        <servlet-class>Admin.viewStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>saveEditStaff</servlet-name>
+        <servlet-class>Admin.saveEditStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteStaff</servlet-name>
+        <servlet-class>Admin.DeleteStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>edit</servlet-name>
+        <servlet-class>Admin.edit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReturnMessage</servlet-name>
+        <servlet-class>Investor.ReturnMessage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarkAsRead</servlet-name>
+        <servlet-class>Investor.MarkAsRead</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Adduser</servlet-name>
         <url-pattern>/Adduser</url-pattern>
@@ -315,6 +363,54 @@
     <servlet-mapping>
         <servlet-name>DebitClient</servlet-name>
         <url-pattern>/DebitClient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetInvestInfo</servlet-name>
+        <url-pattern>/GetInvestInfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InvestorInterestReturn</servlet-name>
+        <url-pattern>/InvestorInterestReturn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoanInvest</servlet-name>
+        <url-pattern>/LoanInvest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveInvestInfo</servlet-name>
+        <url-pattern>/SaveInvestInfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoanAds</servlet-name>
+        <url-pattern>/LoanAds</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetAuthorizationPin</servlet-name>
+        <url-pattern>/SetAuthorizationPin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>viewStaff</servlet-name>
+        <url-pattern>/viewStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>saveEditStaff</servlet-name>
+        <url-pattern>/saveEditStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStaff</servlet-name>
+        <url-pattern>/DeleteStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>edit</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReturnMessage</servlet-name>
+        <url-pattern>/ReturnMessage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarkAsRead</servlet-name>
+        <url-pattern>/MarkAsRead</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

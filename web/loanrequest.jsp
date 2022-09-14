@@ -122,7 +122,7 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
             document.getElementById("tdate").value = day + "/" + month + "/" + year;
         
        var p= document.getElementById("status").value;
-       if(p!=""){
+       if(p!=""||p=null){
         document.getElementById("dd").style.display="none";
         document.getElementById("cc").innerHTML="You have an on going transaction at the moment...";
        }

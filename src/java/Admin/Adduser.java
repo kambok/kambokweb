@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.AdminUser;
-import model.Admindetails;
+import model.InvestorDetails;
 
 
 public class Adduser extends HttpServlet {
@@ -34,19 +34,36 @@ public class Adduser extends HttpServlet {
             ad.setPosition(position);
             ad.setEmail(email);
             ad.setPhone(phone);
-
-            if(data.Database.saveAdminuser(ad)==4){
-                out.println("<head><style>b{color:green;}</style></head>");    
-                out.println("<script type='text/javascript'>document.getElementById('report').innerHTML = 'Record saved successfully';</script>");
-                RequestDispatcher rd=request.getRequestDispatcher("register.html");
-                rd.include(request, response);
-            }else{
-                out.println("<head><style>b{color:red;}</style></head>");    
-                out.println("<script type='text/javascript'>document.getElementById('report').innerHTML = 'Something went wrong!';</script>");
-                RequestDispatcher rd=request.getRequestDispatcher("register.html");
-                rd.include(request, response);  
+            
+            if(ad.getPosition().equals("Investor")){
+                InvestorDetails id = new InvestorDetails();
+                id.setEmail(email);
+                id.setWalletId(WalletID.referenceCode());
+                id.setTranspin("pin");
+                if(data.Database.Investor(id)==1 && data.Database.saveAdminuser(ad)==4){
+                    RequestDispatcher rd=request.getRequestDispatcher("staffmanagement.jsp");
+                    rd.include(request, response);
+                    out.println("<head><style>b{color:green;}</style></head>");    
+                    out.println("<script type='text/javascript'>document.getElementById('addReport').innerHTML = 'Record saved successfully';</script>");
+                }else{
+                    RequestDispatcher rd=request.getRequestDispatcher("staffmanagement.jsp");
+                    rd.include(request, response);  
+                    out.println("<head><style>b{color:red;}</style></head>");    
+                    out.println("<script type='text/javascript'>document.getElementById('addReport').innerHTML = 'Something went wrong!';</script>");
                 }
+            }else{
+               if(data.Database.saveAdminuser(ad)==4){
+                    RequestDispatcher rd=request.getRequestDispatcher("staffmanagement.jsp");
+                    rd.include(request, response);
+                    out.println("<head><style>b{color:green;}</style></head>");    
+                    out.println("<script type='text/javascript'>document.getElementById('addReport').innerHTML = 'Record saved successfully';</script>");
+                }else{
+                    RequestDispatcher rd=request.getRequestDispatcher("staffmanagement.jsp");
+                    rd.include(request, response);  
+                    out.println("<head><style>b{color:red;}</style></head>");    
+                    out.println("<script type='text/javascript'>document.getElementById('addReport').innerHTML = 'Something went wrong!';</script>");
+                    } 
+            }
         }
-
     }
 }

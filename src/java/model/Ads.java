@@ -1,26 +1,8 @@
 package model;
 
 public class Ads {
-    String  date, adsID, adsPackage, adsStatus;
-private double investBalance,adsAmount;
-
-    public double getInvestBalance() {
-        return investBalance;
-    }
-
-    public void setInvestBalance(double investBalance) {
-        this.investBalance = investBalance;
-    }
-
-    public double getAdsAmount() {
-        return adsAmount;
-    }
-
-    public void setAdsAmount(double adsAmount) {
-        this.adsAmount = adsAmount;
-    }
- 
-
+    String date, adsID, adsPackage, adsStatus;
+    double adsAmount, InvestBalance;
     public String getDate() {
         return date;
     }
@@ -52,5 +34,21 @@ private double investBalance,adsAmount;
     public void setAdsStatus(String adsStatus) {
         this.adsStatus = adsStatus;
     }
-    
+
+    public double getAdsAmount() {
+        return adsAmount;
+    }
+
+    public void setAdsAmount(double adsAmount) {
+        this.adsAmount = adsAmount;
+    }
+
+    public double getInvestBalance() {
+        return InvestBalance;
+    }
+
+    public void setInvestBalance(double InvestBalance) {
+        this.InvestBalance = InvestBalance;
+    }
+
 }
