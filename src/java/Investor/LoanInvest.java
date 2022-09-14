@@ -80,9 +80,15 @@ public class LoanInvest extends HttpServlet {
             id.setStatus("In Progress");
             
             if(data.Database.LoanInvest(id, ads, wallet) == 4){
-                request.getRequestDispatcher("investordashboard.jsp").include(
+                request.getRequestDispatcher("investment-news-feed.jsp").include(
                         request, response);
-                out.println("<head><script>alert('You have successfully invested a total anount of ₦"+investAmt+". Kindly contact the Admin/Payment department for confirmation.')</script></head>"); 
+//                response.sendRedirect("investment-news-feed.jsp");
+                        out.println("<script type='text/javascript'>");
+                            out.println("var alertmsg = document.querySelector('.alert')");
+                            out.println("document.getElementById('investedAmt').innerHTML = "+investAmt+"");
+                            out.println("alertmsg.classList.remove('d-none')");
+                        out.println("</script>");
+                    
             }else{
                 request.getRequestDispatcher("Invest.jsp").include(
                         request, response);
