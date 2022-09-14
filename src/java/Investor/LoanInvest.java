@@ -26,34 +26,47 @@ public class LoanInvest extends HttpServlet {
             String walletId = request.getParameter("walletId");
             String investAmount = request.getParameter("investAmount2");
             String investID = InvestmentIDGenerator.investmentID();
-            
+
             HttpSession session = request.getSession();
             session.setAttribute("investID", investID);
-            
+
             double investAmt = Double.parseDouble(investAmount);
             double investBal = Double.parseDouble(investBalance);
             double walletBal = Double.parseDouble(walletBalance);
-            
+
             LocalDate date = LocalDate.now();
-            int month =date.getMonthValue();
-            int day =date.getDayOfMonth();
-            int year =date.getYear();
-            
+            int month = date.getMonthValue();
+            int day = date.getDayOfMonth();
+            int year = date.getYear();
+
             Ads ads = new Ads();
-            if(investAmt != investBal){
+            if (investAmt != investBal) {
                 investBal -= investAmt;
                 walletBal -= investAmt;
                 ads.setAdsStatus("Pending");
-            }else{
+                if (investBal <= 100000) {
+                    ads.setAdsPackage("Bronze");
+                } else if (investBal > 100000 && investBal <= 500000) {
+                    ads.setAdsPackage("Gold");
+                } else if (investBal > 500000 && investBal <= 1000000) {
+                    ads.setAdsPackage("Platinum");
+                }
+            } else {
                 walletBal -= investAmt;
                 investBal -= investAmt;
                 ads.setAdsStatus("Invested");
+                if (investBal <= 100000) {
+                    ads.setAdsPackage("Bronze");
+                } else if (investBal > 100000 && investBal <= 500000) {
+                    ads.setAdsPackage("Gold");
+                } else if (investBal > 500000 && investBal <= 1000000) {
+                    ads.setAdsPackage("Platinum");
+                }
             }
-            
-            
+
             ads.setAdsID(adsId);
             ads.setInvestBalance(investBal);
-            
+
             Wallet wallet = new Wallet();
             wallet.setSender(walletId);
             wallet.setAcctno(walletId);
@@ -61,9 +74,9 @@ public class LoanInvest extends HttpServlet {
             wallet.setCredit(0);
             wallet.setDebit(investAmt);
             wallet.setTotal(walletBal);
-            wallet.setDate(""+day+"/"+month+"/"+year+"");
+            wallet.setDate("" + day + "/" + month + "/" + year + "");
             wallet.setStatus("Invested");
-            
+
             InvestorDetails id = new InvestorDetails();
             id.setDebit(investAmt);
             id.setCredit(0.0);
@@ -71,22 +84,26 @@ public class LoanInvest extends HttpServlet {
             id.setEmail(email);
             id.setWalletBalance(walletBal);
             id.setWalletId(walletId);
-            id.setDate(""+day+"/"+month+"/"+year+"");
+            id.setDate("" + day + "/" + month + "/" + year + "");
             id.setDays(day);
             id.setMonth(month);
             id.setYear(year);
-            id.setInterest((investAmt/100)*10);
+            id.setInterest((investAmt / 100) * 10);
             id.setInvestmentID(investID);
             id.setStatus("In Progress");
-            
-            if(data.Database.LoanInvest(id, ads, wallet) == 4){
+
+            if (data.Database.LoanInvest(id, ads, wallet) == 4) {
                 request.getRequestDispatcher("investordashboard.jsp").include(
                         request, response);
-                out.println("<head><script>alert('You have successfully invested a total anount of ₦"+investAmt+". Kindly contact the Admin/Payment department for confirmation.')</script></head>"); 
-            }else{
+                out.println(
+                        "<head><script>alert('You have successfully invested a total anount of ₦"
+                        + investAmt
+                        + ". Kindly contact the Admin/Payment department for confirmation.')</script></head>");
+            } else {
                 request.getRequestDispatcher("Invest.jsp").include(
                         request, response);
-                out.println("<head><script>document.getElementById('report2').innerHTML = 'Something went wrong!'</script></head>"); 
+                out.println(
+                        "<head><script>document.getElementById('report2').innerHTML = 'Something went wrong!'</script></head>");
             }
         }
     }

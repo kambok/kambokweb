@@ -639,7 +639,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <p class="text-left text-danger py-3 pb-0"><i class="fas fa-money-bill-transfer rounded-circle d-none d-md-inline-block"></i> Advertised amount </p>
-                                                                    <h2 class="text-left text-light" id="amt"> ₦<%= ads.getAdsAmount()%></h2>
+                                                                    <h2 class="text-left text-light" id="amt"> ₦<%=ads.getInvestBalance()%></h2>
                                                                 </div>
                                                             </div>
                                                             <a href="investordashboard.jsp" class="my-2 btn btn-dark text-center mx-auto">Fund wallet</a>
